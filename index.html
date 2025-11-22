@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>QuantBotForge — Trading Bot Development</title>
+<meta name="description" content="Professional trading bot development for MT4, MT5, TradingView, and crypto exchanges. Custom strategy automation with NDA protection and premium support plans." />
+<style>
+  body { margin:0; font-family: Arial,sans-serif; background:#f8f9fa; color:#222;}
+  header {background:#0c0f1a; padding:20px 40px; color:#fff; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:100;}
+  nav a {color:#fff; margin:0 15px; text-decoration:none; font-weight:500;}
+  nav a:hover {opacity:.7;}
+  .logo { font-size:22px;font-weight:700; }
+
+  .hero {background: linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)), url('https://images.unsplash.com/photo-1551434678-e076c223a692'); background-size:cover; background-position:center; color:white; padding:120px 20px; text-align:center;}
+  .hero h1 {font-size:48px; margin-bottom:20px;}
+  .hero p {font-size:20px;}
+  .btn {padding:14px 28px; border-radius:6px; text-decoration:none; font-weight:bold; display:inline-block; margin-top:20px; transition: all 0.3s ease;}
+  .btn:hover {transform: scale(1.05);}
+
+  .section {padding:60px 20px; max-width:1200px; margin:auto;}
+  .section h2 {font-size:36px; margin-bottom:20px; position:relative; display:inline-block; padding-bottom:5px;}
+  .section h2::after {content:""; width:70px; height:4px; background:#00d26a; display:block; margin-top:5px; border-radius:2px;}
+
+  .pricing-grid {display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:30px; margin-top:30px;}
+  .card {background:#fff; border-radius:16px; padding:30px; box-shadow:0 6px 25px rgba(0,0,0,.12); transition: transform 0.3s, box-shadow 0.3s;}
+  .card:hover {transform: translateY(-10px); box-shadow:0 12px 35px rgba(0,0,0,.25);}
+  .card h3 {margin-top:0; margin-bottom:15px; font-size:22px;}
+  .card ul {padding-left:20px;}
+  .card ul li {margin-bottom:12px; font-size:16px;}
+  .price {font-size:28px; margin:20px 0; font-weight:bold;}
+
+  /* Subscription Colors */
+  .entry { border-top: 6px solid #ffd700; background: linear-gradient(135deg, #fff8dc, #fffbe6);}
+  .basic { border-top: 6px solid #00bfff; background: linear-gradient(135deg, #e0f7ff, #ffffff);}
+  .pro { border-top: 6px solid #ff4500; background: linear-gradient(135deg, #ffe6e0, #fff5f2);}
+  .premium { border-top: 6px solid #8a2be2; background: linear-gradient(135deg, #f3e5ff, #ffffff);}
+
+  /* Button Colors */
+  .btn-entry { background:#ffd700; color:#000;}
+  .btn-entry:hover { background:#e6c200; color:#000;}
+  .btn-basic { background:#00bfff; color:#fff;}
+  .btn-basic:hover { background:#0099cc; color:#fff;}
+  .btn-pro { background:#ff4500; color:#fff;}
+  .btn-pro:hover { background:#e03e00; color:#fff;}
+  .btn-premium { background:#8a2be2; color:#fff;}
+  .btn-premium:hover { background:#6f23d1; color:#fff;}
+
+  footer {background:#0c0f1a; color:#aaa; padding:40px 20px; text-align:center; margin-top:40px; font-size:14px;}
+
+  @media(max-width:768px){
+    header { flex-direction:column; gap:10px; }
+    nav { display:flex; flex-wrap:wrap; justify-content:center; }
+    .hero h1 { font-size:32px; }
+    .hero p { font-size:16px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">QuantBotForge</div>
+  <nav>
+    <a href="services.html">Services</a>
+    <a href="process.html">Process</a>
+    <a href="faq.html">FAQ</a>
+    <a href="about us.html">About Us</a>
+    <a href="contact us.html">Contact Us</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Custom Trading Bot Development</h1>
+  <p>MT4 • MT5 • TradingView • Crypto APIs | 100% NDA Protected • Professional Automation</p>
+  <a class="btn" href="#pricing">View Plans</a>
+</section>
+
+<section id="services" class="section">
+  <h2>What We Develop</h2>
+  <p>We build professional trading bots for various platforms to automate strategies efficiently and securely.</p>
+  <div class="pricing-grid">
+    <div class="card"><h3>MT4 / MT5 Bots</h3><p>Expert Advisors with advanced risk management, smart execution, and indicator logic to automate forex, CFDs, and crypto trades.</p></div>
+    <div class="card"><h3>TradingView (Pine Script)</h3><p>Backtest-ready strategies with alerts and webhook integration to connect with brokers or custom trading bots.</p></div>
+    <div class="card"><h3>Crypto Exchange Bots</h3><p>Python bots for Binance, Bybit, and OKX with scalping, grid, API automation, and customizable logic for crypto trading.</p></div>
+    <div class="card"><h3>Strategy Optimization</h3><p>Drawdown reduction, performance testing, and optimization reports to improve your trading strategy's success rate.</p></div>
+  </div>
+</section>
+
+<section id="pricing" class="section">
+  <h2>Pricing Plans (USD)</h2>
+  <div class="pricing-grid">
+
+    <div class="card entry">
+      <h3>Entry Plan / Chat + Sample Bot</h3>
+      <div class="price">$10</div>
+      <ul>
+        <li>Access to chat system for Q&A</li>
+        <li>Sample bot code file included</li>
+        <li>Step-by-step guidance on usage</li>
+        <li>Learn automation process before buying full bot</li>
+      </ul>
+      <a class="btn" href="payment.html?plan=entry">Subscribe $10</a>
+
+    </div>
+
+    <div class="card basic">
+      <h3>Basic Bot</h3>
+      <div class="price">$200 – $400</div>
+      <ul>
+        <li>Single strategy automation</li>
+        <li>Basic risk management integration</li>
+        <li>1 revision included</li>
+        <li>Delivery: 3–7 days</li>
+        <li><strong>Company retains full rights to the bot</strong></li>
+      </ul>
+      <a class="btn btn-basic" href="payment.html?plan=basic">Buy Basic Plan</a>
+    </div>
+
+    <div class="card pro">
+      <h3>Professional Bot</h3>
+      <div class="price">$500 – $1,200</div>
+      <ul>
+        <li>Multiple strategy conditions</li>
+        <li>Support for custom indicators</li>
+        <li>Optimization and backtest report</li>
+        <li>30 days support post-delivery</li>
+        <li><strong>NDA provided — client logic remains confidential</strong></li>
+      </ul>
+      <a class="btn btn-pro" href="payment.html?plan=pro">Buy Pro Plan</a>
+    </div>
+
+    <div class="card premium">
+      <h3>Premium / Institutional</h3>
+      <div class="price">$1,500 – $4,000+</div>
+      <ul>
+        <li>High-frequency and institutional bots</li>
+        <li>Live monitoring panel</li>
+        <li>Dedicated support & VPS setup</li>
+        <li><strong>NDA provided — client logic remains confidential</strong></li>
+      </ul>
+      <a class="btn btn-premium" href="payment.html?plan=premium">Buy Premium Plan</a>
+    </div>
+
+  </div>
+</section>
+
+<section id="process" class="section">
+  <h2>Our Development Process</h2>
+  <ol>
+    <li>Understanding your full logic (entry, exit, risk)</li>
+    <li>Signing NDA for protection</li>
+    <li>Creating project roadmap</li>
+    <li>Development + test build</li>
+    <li>Final delivery + documentation</li>
+    <li>Support & future updates</li>
+  </ol>
+</section>
+
+<section id="faq" class="section">
+  <h2>FAQ</h2>
+  <p><strong>Do I need to share my strategy logic?</strong><br> Yes — full rules are required to build your bot. Everything is protected under NDA.</p>
+  <p><strong>Can you modify an existing bot?</strong><br> Yes, we can upgrade, optimize, or fix any MT4/MT5/Pine/Python bot.</p>
+  <p><strong>Do you offer profit-share partnerships?</strong><br> Yes — qualified strategies can get 15–30% profit-sharing models.</p>
+</section>
+
+<footer>
+  © 2025 QuantBotForge — All Rights Reserved
+</footer>
+
+</body>
+</html>
