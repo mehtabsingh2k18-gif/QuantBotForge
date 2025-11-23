@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QuantBotForge — $10 Demo Chat</title>
+<meta name="description" content="Prototype chat flow for $10 subscription. Demo bot download and guidance for full bot plans.">
+<style>
+  body { margin:0; font-family: Arial, sans-serif; background:#f2f7fb; }
+  header { background:#0c0f1a; color:#fff; padding:20px 40px; text-align:center; font-size:24px; font-weight:bold; }
+  .chat-container { max-width:600px; margin:40px auto; background:#fff; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,.1); padding:20px; }
+  .message { padding:12px 16px; border-radius:20px; margin-bottom:12px; width:fit-content; max-width:80%; }
+  .bot { background:#00d26a; color:#000; align-self:flex-start; }
+  .user { background:#0c0f1a; color:#fff; align-self:flex-end; }
+  .options { display:flex; flex-wrap:wrap; margin-top:10px; }
+  .options button { margin:5px; padding:10px 18px; border:none; border-radius:12px; cursor:pointer; background:#00d26a; font-weight:bold; transition:0.3s; }
+  .options button:hover { background:#00b559; }
+  .chat-window { display:flex; flex-direction:column; }
+  a.btn { display:inline-block; margin:10px 5px 0 0; padding:12px 24px; background:#0d6efd; color:#fff; border-radius:8px; text-decoration:none; font-weight:bold; transition:0.3s; }
+  a.btn:hover { background:#0056b3; }
+</style>
+</head>
+<body>
+
+<header>QuantBotForge — $10 Demo Chat</header>
+
+<div class="chat-container">
+  <div id="chat" class="chat-window">
+    <div class="message bot">Hi! Welcome to QuantBotForge. This $10 subscription is a demo to help you understand trading automation. Let's start!</div>
+  </div>
+</div>
+
+<script>
+  const chat = document.getElementById("chat");
+
+  const flow = [
+    {
+      bot: "Do you already have a trading strategy that you want to automate?",
+      options: ["Yes, I have a strategy", "No, I need help developing one"]
+    },
+    {
+      bot: "What is your trading style?",
+      options: ["Scalping / High-frequency", "Day trading", "Swing / Position trading", "Not sure"]
+    },
+    {
+      bot: "Which platform would you like your automated bot on?",
+      options: ["MT4", "MT5", "TradingView / Pine Script", "Other"]
+    },
+    {
+      bot: "Which market do you want to trade?",
+      options: ["Forex", "Stocks", "Crypto", "Commodities / Indices"]
+    },
+     {
+      bot: "What is your trading style?",
+      options: ["Scalping / High-frequency", "Day trading", "Swing / Position trading", "Not sure"]
+    },
+    {
+      bot: "Which platform would you like your automated bot on?",
+      options: ["MT4", "MT5", "TradingView / Pine Script", "Other"]
+    },
+    {
+      bot: "Which market do you want to trade?",
+      options: ["Forex", "Stocks", "Crypto", "Commodities / Indices"]
+    },
+    {
+      bot: "What is your goal for automation?",
+      options: ["Test my strategy automatically", "Reduce manual trading errors", "Full trading automation & optimization"]
+    },
+    {
+      bot: "Great! Now, if you want your strategy fully automated by our team with human-guided chat and professional coding, you can select one of our full bot plans."
+    },
+    {
+      bot: "Meanwhile, here is a sample bot for demonstration purposes only. ⚠️ Do NOT use it on a live account. It helps you understand how automation works."
+    }
+  ];
+
+  let step = 0;
+
+  function showOptions(options) {
+    const container = document.createElement("div");
+    container.className = "options";
+
+    options.forEach(opt => {
+      const btn = document.createElement("button");
+      btn.innerText = opt;
+      btn.onclick = () => {
+        const userMsg = document.createElement("div");
+        userMsg.className = "message user";
+        userMsg.innerText = opt;
+        chat.appendChild(userMsg);
+        container.remove();
+        step++;
+        setTimeout(nextStep, 500);
+      };
+      container.appendChild(btn);
+    });
+
+    chat.appendChild(container);
+  }
+
+  function nextStep() {
+    if(step >= flow.length) {
+      // Show final links for plans and sample bot
+      const linkContainer = document.createElement("div");
+      linkContainer.style.marginTop = "10px";
+
+      const plansLink = document.createElement("a");
+      plansLink.href = "services.html";
+      plansLink.innerText = "View Full Bot Plans";
+      plansLink.className = "btn";
+      plansLink.target = "_blank";
+
+      const sampleBotLink = document.createElement("a");
+      sampleBotLink.href = "sample_bot_demo.mq4";
+      sampleBotLink.innerText = "Download Sample Bot";
+      sampleBotLink.className = "btn";
+      sampleBotLink.target = "_blank";
+
+      linkContainer.appendChild(plansLink);
+      linkContainer.appendChild(sampleBotLink);
+      chat.appendChild(linkContainer);
+
+      chat.scrollTop = chat.scrollHeight;
+      return;
+    }
+
+    const current = flow[step];
+
+    const botMsg = document.createElement("div");
+    botMsg.className = "message bot";
+    botMsg.innerText = current.bot;
+    chat.appendChild(botMsg);
+
+    if(current.options) {
+      showOptions(current.options);
+    }
+
+    step++;
+    chat.scrollTop = chat.scrollHeight;
+
+    // Move to next step automatically if no options
+    if(!current.options) setTimeout(nextStep, 1500);
+  }
+
+  setTimeout(nextStep, 1000);
+</script>
+
+</body>
+</html>

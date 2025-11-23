@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fake Payment — QuantBotForge</title>
+<style>
+body { font-family: Arial,sans-serif; background:#f8f9fa; padding:50px; text-align:center;}
+h1 {color:#00d26a;}
+button {padding:15px 30px; font-size:18px; background:#00d26a; border:none; border-radius:6px; cursor:pointer;}
+button:hover {background:#00b559;}
+</style>
+</head>
+<body>
+<h1>Pay $10 to Unlock Chat</h1>
+<p>This is a prototype. No real payment is done.</p>
+<button onclick="completePayment()">Pay $10</button>
+
+<script>
+function completePayment(){
+    // simulate payment success and redirect to chat
+    window.location.href = "chat.html?plan=entry";
+}
+</script>
+</body>
+</html>
