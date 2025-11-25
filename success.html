@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QuantBotForge — Payment Status</title>
+
+  <style>
+    body { margin:0; font-family:Arial,sans-serif; background:linear-gradient(135deg,#0c0f1a,#1b2236); color:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; text-align:center;}
+    h1 { font-size:36px; margin-bottom:20px;}
+    p { font-size:18px; color:#ccc;}
+    #homeButton { display:none; margin-top:30px; padding:12px 25px; font-size:16px; background:#4e8cff; color:#fff; border:none; border-radius:8px; cursor:pointer;}
+    #homeButton:hover{background:#346fe0;}
+  </style>
+</head>
+<body>
+
+<h1 id="statusMessage">Verifying your payment...</h1>
+<p>Please wait while we confirm your transaction.</p>
+<button id="homeButton" onclick="window.location.href='index.html'">Go to Home</button>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+<script>
+  // ==== Firebase Config ====
+  const firebaseConfig = {
+    apiKey: "AIzaSyD50zshPzc8VOCWxSGLPz7EcawQb8Qreq4",
+    authDomain: "quantbotforge.firebaseapp.com",
+    databaseURL: "https://quantbotforge-default-rtdb.firebaseio.com",
+    projectId: "quantbotforge",
+    storageBucket: "quantbotforge.firebasestorage.app",
+    messagingSenderId: "792940932432",
+    appId: "1:792940932432:web:6eb33f04937fba8a301055"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+  const auth = firebase.auth();
+
+  const SUCCESS_CODE = "ppanttt:ssuq";
+
+  // Get URL parameters
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get("status");
+  const planCode = params.get("plan") || "ppanttt:basic";
+
+  auth.onAuthStateChanged(user => {
+    if(!user){
+      window.location.href = "index.html";
+      return;
+    }
+    const userId = user.uid;
+
+    // 3 sec buffer
+    setTimeout(()=>{
+      if(code === SUCCESS_CODE){
+        db.collection("users").doc(userId).update({
+          plan: planCode,
+          paymentStatus: SUCCESS_CODE
+        }).then(()=>{
+          document.getElementById("statusMessage").innerText = "Payment Successful! 🎉";
+          document.getElementById("homeButton").style.display = "inline-block";
+
+          // Enable Tawk Chat
+          var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+          (function(){
+            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+            s1.async=true;
+            s1.src='https://embed.tawk.to/6921b672a45b0c1967397786/1jalr1c4n';
+            s1.charset='UTF-8';
+            s1.setAttribute('crossorigin','*');
+            s0.parentNode.insertBefore(s1,s0);
+          })();
+
+        }).catch(err=>{
+          console.error("Firebase update failed:",err);
+          document.getElementById("statusMessage").innerText="Payment Verified, but Firebase update failed!";
+          document.getElementById("homeButton").style.display = "inline-block";
+        });
+      } else {
+        document.getElementById("statusMessage").innerText = "Payment Failed or Cancelled ❌";
+        // stay on page, no redirect
+      }
+    }, 3000);
+  });
+</script>
+
+</body>
+</html>
