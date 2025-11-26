@@ -17,12 +17,12 @@
 
 <h1 id="statusMessage">Verifying your payment...</h1>
 <p>Please wait while we confirm your transaction.</p>
-<button id="homeButton" onclick="window.location.href='index.html'">Go to Home</button>
+<button id="homeButton" onclick="window.location.href='home.html'">Go to Home</button>
 
-<!-- Firebase SDK -->
+<!-- Firebase (Realtime Database + Auth) -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
 <script>
   // ==== Firebase Config ====
@@ -35,31 +35,39 @@
     messagingSenderId: "792940932432",
     appId: "1:792940932432:web:6eb33f04937fba8a301055"
   };
+
   firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
+
+  const db = firebase.database();
   const auth = firebase.auth();
 
   const SUCCESS_CODE = "ppanttt:ssuq";
 
-  // Get URL parameters
+  // Get URL params
   const params = new URLSearchParams(window.location.search);
   const code = params.get("status");
-  const planCode = params.get("plan") || "ppanttt:basic";
+  const planCode = params.get("plan") || "basic";
 
   auth.onAuthStateChanged(user => {
     if(!user){
-      window.location.href = "index.html";
+      window.location.href = "home.html";
       return;
     }
+
     const userId = user.uid;
 
-    // 3 sec buffer
+    // 3-sec buffer (like loading/verification)
     setTimeout(()=>{
+      
       if(code === SUCCESS_CODE){
-        db.collection("users").doc(userId).update({
+
+        // UPDATE REALTIME DATABASE
+        firebase.database().ref("users/" + userId).update({
           plan: planCode,
-          paymentStatus: SUCCESS_CODE
-        }).then(()=>{
+          paymentStatus: "success"
+        })
+        .then(() => {
+
           document.getElementById("statusMessage").innerText = "Payment Successful! 🎉";
           document.getElementById("homeButton").style.display = "inline-block";
 
@@ -74,16 +82,19 @@
             s0.parentNode.insertBefore(s1,s0);
           })();
 
-        }).catch(err=>{
-          console.error("Firebase update failed:",err);
-          document.getElementById("statusMessage").innerText="Payment Verified, but Firebase update failed!";
+        })
+        .catch((err)=>{
+          console.error("Firebase DB update failed:", err);
+          document.getElementById("statusMessage").innerText = "Payment Verified, but Firebase update failed!";
           document.getElementById("homeButton").style.display = "inline-block";
         });
+
       } else {
         document.getElementById("statusMessage").innerText = "Payment Failed or Cancelled ❌";
-        // stay on page, no redirect
       }
+
     }, 3000);
+
   });
 </script>
 

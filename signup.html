@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sign Up — QuantBotForge</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body { margin:0; font-family: Arial,sans-serif; background:#f7f7f7; }
+  .signup-box { width:360px; margin:80px auto; background:#fff; padding:30px; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.1);}
+  h2 { text-align:center; margin-bottom:20px; }
+  input { width:100%; padding:12px; margin-top:10px; border-radius:8px; border:1px solid #ccc; font-size:15px;}
+  button { width:100%; margin-top:15px; padding:12px; border:none; border-radius:8px; background:#0070f3; color:white; font-size:16px; cursor:pointer;}
+  button:hover{ background:#005fcc;}
+  .google-btn { background:#db4437; }
+  .error { color:red; margin-top:10px; text-align:center; font-size:14px; }
+</style>
+</head>
+<body>
+
+<div class="signup-box">
+  <h2>Sign Up</h2>
+  <input type="text" id="username" placeholder="Enter Username">
+  <input type="email" id="email" placeholder="Enter Email">
+  <input type="password" id="password" placeholder="Enter Password">
+  <button id="signupBtn">Sign Up</button>
+  <button id="googleBtn" class="google-btn">Sign Up With Google</button>
+  <div id="errorMessage" class="error"></div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+import { getDatabase, ref, set, get, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyD50zshPzc8VOCWxSGLPz7EcawQb8Qreq4",
+  authDomain: "quantbotforge.firebaseapp.com",
+  projectId: "quantbotforge",
+  storageBucket: "quantbotforge.firebasestorage.app",
+  messagingSenderId: "792940932432",
+  appId: "1:792940932432:web:6eb33f04937fba8a301055",
+  databaseURL: "https://quantbotforge-default-rtdb.firebaseio.com/"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getDatabase(app);
+
+const signupBtn = document.getElementById("signupBtn");
+const googleBtn = document.getElementById("googleBtn");
+const errorMessage = document.getElementById("errorMessage");
+
+// Generate unique username if blank
+function generateUsername(base) {
+  const random = Math.floor(100 + Math.random() * 900);
+  return base.replace(/[^a-zA-Z0-9]/g,"") + random;
+}
+
+// Check if username already exists
+async function usernameExists(username) {
+  const q = query(ref(db,"users"), orderByChild("username"), equalTo(username));
+  const snap = await get(q);
+  return snap.exists();
+}
+
+// Sign up with email/password
+signupBtn.onclick = async () => {
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  let username = document.getElementById("username").value.trim();
+
+  if(!email || !password) {
+    errorMessage.textContent = "Email and password are required.";
+    return;
+  }
+
+  if(!username) username = generateUsername(email.split("@")[0]);
+
+  // Ensure unique username
+  while(await usernameExists(username)) {
+    username = generateUsername(username);
+  }
+
+  try {
+    const result = await createUserWithEmailAndPassword(auth, email, password);
+    const user = result.user;
+
+    await set(ref(db,"users/"+user.uid),{
+      email: email,
+      username: username,
+      plan: "none",
+      plan_active: false,
+      created_at: Date.now()
+    });
+
+    localStorage.setItem("qbf_user_email", email);
+    localStorage.setItem("qbf_user_username", username);
+    localStorage.setItem("qbf_user_plan","none");
+
+    window.location.href="home.html";
+  } catch(err) {
+    errorMessage.textContent = err.message;
+  }
+};
+
+// Google Sign-Up
+googleBtn.onclick = async () => {
+  try {
+    const provider = new GoogleAuthProvider();
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+
+    const snap = await get(ref(db,"users/"+user.uid));
+    if(!snap.exists()){
+      const username = generateUsername(user.email.split("@")[0]);
+      await set(ref(db,"users/"+user.uid),{
+        email:user.email,
+        username:username,
+        plan:"none",
+        plan_active:false,
+        created_at: Date.now()
+      });
+    }
+
+    const data = (await get(ref(db,"users/"+user.uid))).val();
+    localStorage.setItem("qbf_user_email", data.email);
+    localStorage.setItem("qbf_user_username", data.username);
+    localStorage.setItem("qbf_user_plan", data.plan);
+
+    window.location.href="home.html";
+  } catch(err) {
+    errorMessage.textContent = err.message;
+  }
+};
+</script>
+
+</body>
+</html>
