@@ -6,8 +6,19 @@
   <title>QuantBotForge — Payment Status</title>
 
   <style>
-    body { margin:0; font-family:Arial,sans-serif; background:linear-gradient(135deg,#0c0f1a,#1b2236); color:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; text-align:center;}
-    h1 { font-size:36px; margin-bottom:20px;}
+    body { 
+      margin:0; 
+      font-family:Arial,sans-serif; 
+      background:linear-gradient(135deg,#0c0f1a,#1b2236); 
+      color:#fff; 
+      display:flex; 
+      flex-direction:column; 
+      align-items:center; 
+      justify-content:center; 
+      height:100vh; 
+      text-align:center;
+    }
+    h1 { font-size:36px; margin-bottom:20px; white-space: pre-line; }
     p { font-size:18px; color:#ccc;}
     #homeButton { display:none; margin-top:30px; padding:12px 25px; font-size:16px; background:#4e8cff; color:#fff; border:none; border-radius:8px; cursor:pointer;}
     #homeButton:hover{background:#346fe0;}
@@ -56,9 +67,9 @@
 
     const userId = user.uid;
 
-    // 3-sec buffer (like loading/verification)
-    setTimeout(()=>{
-      
+    // 3-second verification buffer
+    setTimeout(() => {
+
       if(code === SUCCESS_CODE){
 
         // UPDATE REALTIME DATABASE
@@ -68,7 +79,10 @@
         })
         .then(() => {
 
-          document.getElementById("statusMessage").innerText = "Payment Successful! 🎉";
+          // Show success + redirecting message
+          document.getElementById("statusMessage").innerText = "Payment Successful! 🎉\nRedirecting to your dashboard...";
+
+          // Show Home button in case user wants manual click
           document.getElementById("homeButton").style.display = "inline-block";
 
           // Enable Tawk Chat
@@ -82,11 +96,21 @@
             s0.parentNode.insertBefore(s1,s0);
           })();
 
+          // Automatically redirect after 2 seconds
+          setTimeout(() => {
+            window.location.href = "home.html"; // or dashboard.html
+          }, 2000);
+
         })
-        .catch((err)=>{
+        .catch((err) => {
           console.error("Firebase DB update failed:", err);
-          document.getElementById("statusMessage").innerText = "Payment Verified, but Firebase update failed!";
+          document.getElementById("statusMessage").innerText = "Payment Verified, but Firebase update failed!\nRedirecting...";
           document.getElementById("homeButton").style.display = "inline-block";
+
+          // Redirect anyway after 3 seconds
+          setTimeout(() => {
+            window.location.href = "home.html";
+          }, 3000);
         });
 
       } else {
