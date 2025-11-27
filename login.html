@@ -56,7 +56,7 @@ button { width:100%; padding:14px; margin-top:15px; border:none; border-radius:1
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
-import { getDatabase, ref, get, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
+import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyD50zshPzc8VOCWxSGLPz7EcawQb8Qreq4",
@@ -76,6 +76,7 @@ const loginBtn = document.getElementById("loginBtn");
 const googleBtn = document.getElementById("googleBtn");
 const errorMessage = document.getElementById("errorMessage");
 
+// Login with Email or Username
 loginBtn.onclick = async () => {
   errorMessage.textContent = "";
   const identifier = document.getElementById("identifier").value.trim();
@@ -87,31 +88,44 @@ loginBtn.onclick = async () => {
   }
 
   let emailToLogin = identifier;
-  let userUid = null;
 
+  // If identifier is a username
   if(!identifier.includes("@")){
-    // Fetch email by username
-    const q = query(ref(db,"users"), orderByChild("username"), equalTo(identifier));
-    const snap = await get(q);
-    if(!snap.exists()){
-      errorMessage.textContent = "Username not found!";
+    try{
+      const usersSnap = await get(ref(db,"users"));
+      if(!usersSnap.exists()){
+        errorMessage.textContent = "Username not found!";
+        return;
+      }
+      const users = usersSnap.val();
+      let found = false;
+      for(const uid in users){
+        if(users[uid].username && users[uid].username.toLowerCase() === identifier.toLowerCase()){
+          emailToLogin = users[uid].email;
+          found = true;
+          break;
+        }
+      }
+      if(!found){
+        errorMessage.textContent = "Username not found!";
+        return;
+      }
+    } catch(err){
+      console.error(err);
+      errorMessage.textContent = "Error checking username!";
       return;
     }
-    const userData = Object.values(snap.val())[0];
-    emailToLogin = userData.email;
-    userUid = Object.keys(snap.val())[0]; // store UID
   }
 
   try{
     const result = await signInWithEmailAndPassword(auth,emailToLogin,password);
     const user = result.user;
-
     const dataSnap = await get(ref(db,"users/"+user.uid));
     const data = dataSnap.val();
 
     localStorage.setItem("qbf_user_email", data.email);
     localStorage.setItem("qbf_user_username", data.username);
-    localStorage.setItem("qbf_user_plan", data.plan);
+    localStorage.setItem("qbf_user_plan", data.plan || "none");
 
     window.location.href="home.html";
   } catch(err){
@@ -120,28 +134,32 @@ loginBtn.onclick = async () => {
   }
 };
 
+// Google Sign-In
 googleBtn.onclick = async () => {
   try{
     const provider = new GoogleAuthProvider();
     const result = await signInWithPopup(auth,provider);
     const user = result.user;
-    const snap = await get(ref(db,"users/"+user.uid));
+
+    const userRef = ref(db,"users/"+user.uid);
+    const snap = await get(userRef);
 
     if(!snap.exists()){
+      // Create a username
       const username = user.email.split("@")[0] + Math.floor(100+Math.random()*900);
-      await set(ref(db,"users/"+user.uid),{
-        email:user.email,
-        username:username,
-        plan:"none",
+      await set(userRef,{
+        email: user.email,
+        username: username,
+        plan: "none",
         plan_active:false,
         created_at: Date.now()
       });
     }
 
-    const data = (await get(ref(db,"users/"+user.uid))).val();
+    const data = (await get(userRef)).val();
     localStorage.setItem("qbf_user_email", data.email);
     localStorage.setItem("qbf_user_username", data.username);
-    localStorage.setItem("qbf_user_plan", data.plan);
+    localStorage.setItem("qbf_user_plan", data.plan || "none");
 
     window.location.href="home.html";
   } catch(err){
