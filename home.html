@@ -7,7 +7,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-/* ------------------- THEME ------------------- */
 :root{
   --accent:#4e8cff;
   --accent2:#38bdf8;
@@ -19,7 +18,7 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:Inter;}
 body{background:var(--bg);color:white;overflow-x:hidden;}
 
-/* ------------------- HEADER ------------------- */
+/* HEADER */
 header{
   position:sticky; top:0; z-index:50;
   background:rgba(11,15,25,0.8);
@@ -29,9 +28,7 @@ header{
   border-bottom:1px solid rgba(255,255,255,0.06);
 }
 .logo{font-size:22px;font-weight:800;}
-nav a{
-  color:#e2e8f0;margin:0 12px;text-decoration:none;font-weight:600;
-}
+nav a{color:#e2e8f0;margin:0 12px;text-decoration:none;font-weight:600;}
 nav a:hover{color:var(--accent);}
 
 .nav-right{display:flex;align-items:center;gap:16px;}
@@ -62,7 +59,7 @@ nav a:hover{color:var(--accent);}
 .logout-btn{background:#ef4444;color:white;}
 .switch-btn{background:#0ea5e9;color:white;}
 
-/* ------------------- HERO ------------------- */
+/* HERO */
 .hero{
   padding:90px 30px 60px;
   text-align:center;
@@ -77,7 +74,6 @@ nav a:hover{color:var(--accent);}
   color:transparent;
 }
 .hero p{color:var(--muted);font-size:18px;line-height:28px;}
-
 .cta-row{margin-top:30px;display:flex;gap:14px; justify-content:center;}
 .btn{
   padding:14px 24px;border-radius:12px;font-size:16px;
@@ -88,7 +84,7 @@ nav a:hover{color:var(--accent);}
 .btn-primary:hover{opacity:0.85;}
 .btn-secondary:hover{background:rgba(78,140,255,0.1);}
 
-/* ------------------- VIDEO BLOCK ------------------- */
+/* VIDEO */
 .video-section{
   margin:60px auto;max-width:900px;padding:20px;text-align:center;
   animation:slideUp 1s ease;
@@ -100,13 +96,12 @@ nav a:hover{color:var(--accent);}
   border:1px solid rgba(255,255,255,0.05);
 }
 
-/* ------------------- PLANS ------------------- */
+/* PLANS */
 .plans{
   max-width:1200px;margin:70px auto;padding:0 20px;
   text-align:center;
 }
 .plans h2{font-size:32px;font-weight:800;margin-bottom:40px;}
-
 .plan-grid{
   display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   gap:22px;
@@ -117,7 +112,6 @@ nav a:hover{color:var(--accent);}
   transition:0.3s;animation:fadeIn 1.2s ease;
 }
 .plan-card:hover{transform:translateY(-6px);}
-
 .plan-card h3{font-size:22px;margin-bottom:8px;}
 .plan-card .price{font-size:30px;font-weight:800;margin-bottom:12px;color:var(--accent2);}
 .plan-card p{color:var(--muted);margin-bottom:8px;font-size:14px;}
@@ -128,7 +122,7 @@ nav a:hover{color:var(--accent);}
 }
 .plan-card button:hover{opacity:0.85;}
 
-/* ------------------- SECTIONS ------------------- */
+/* SECTIONS */
 .section{
   max-width:1100px;margin:60px auto;padding:0 20px;text-align:center;
 }
@@ -145,13 +139,13 @@ nav a:hover{color:var(--accent);}
 .feature h4{font-size:20px;margin-bottom:8px;}
 .feature p{color:var(--muted);font-size:15px;}
 
-/* ------------------- FOOTER ------------------- */
+/* FOOTER */
 footer{
   margin-top:80px;text-align:center;padding:26px;
   color:var(--muted);font-size:14px;
 }
 
-/* ------------------- ANIMATIONS ------------------- */
+/* ANIMATIONS */
 @keyframes fadeIn{
   0%{opacity:0;transform:translateY(20px);}
   100%{opacity:1;transform:translateY(0);}
@@ -195,7 +189,6 @@ footer{
 <section class="hero">
   <h1>Automate Your Trading With Confidence</h1>
   <p>Professional MT4/MT5, TradingView & Exchange Bots — built for accuracy, safety and scalability.</p>
-
   <div class="cta-row">
     <a href="pricing.html" class="btn btn-primary">View Plans</a>
     <a href="#video" class="btn btn-secondary">Watch Demo</a>
@@ -204,53 +197,33 @@ footer{
 
 <!-- VIDEO -->
 <section id="video" class="video-section">
-  <div class="video-box">
-    Preview Video Placeholder (Upload later)
-  </div>
+  <div class="video-box">Preview Video Placeholder</div>
 </section>
 
 <!-- PLANS -->
 <section class="plans">
   <h2>Choose Your Plan</h2>
-
   <div class="plan-grid">
-
     <div class="plan-card">
-      <h3>Entry Plan</h3>
-      <div class="price">$19</div>
-      <p>Chat Support Q&A</p>
-      <p>Sample bot included</p>
-      <p>Step-by-step guidance</p>
+      <h3>Entry Plan</h3><div class="price">$19</div>
+      <p>Chat Support Q&A</p><p>Sample bot included</p><p>Step-by-step guidance</p>
       <button onclick="location.href='Entry.html'">Subscribe</button>
     </div>
-
     <div class="plan-card">
-      <h3>Basic Plan</h3>
-      <div class="price">$299</div>
-      <p>Single Strategy Automation</p>
-      <p>1 Revision Included</p>
-      <p>Delivery: 3–7 Days</p>
+      <h3>Basic Plan</h3><div class="price">$299</div>
+      <p>Single Strategy Automation</p><p>1 Revision Included</p><p>Delivery: 3–7 Days</p>
       <button onclick="location.href='Basic.html'">Buy Now</button>
     </div>
-
     <div class="plan-card">
-      <h3>Pro Plan</h3>
-      <div class="price">$899</div>
-      <p>Multi-condition Strategies</p>
-      <p>Custom Indicators Support</p>
-      <p>Backtest Report + 30 Days Support</p>
+      <h3>Pro Plan</h3><div class="price">$899</div>
+      <p>Multi-condition Strategies</p><p>Custom Indicators Support</p><p>Backtest Report + 30 Days Support</p>
       <button onclick="location.href='Pro.html'">Buy Now</button>
     </div>
-
     <div class="plan-card">
-      <h3>Premium Plan</h3>
-      <div class="price">$2500+</div>
-      <p>Institutional Bots</p>
-      <p>Dedicated VPS Setup & Support</p>
-      <p>NDA Included</p>
+      <h3>Premium Plan</h3><div class="price">$2500+</div>
+      <p>Institutional Bots</p><p>Dedicated VPS Setup & Support</p><p>NDA Included</p>
       <button onclick="location.href='Premium.html'">Buy Now</button>
     </div>
-
   </div>
 </section>
 
@@ -259,16 +232,13 @@ footer{
   <h2>Why QuantBotForge?</h2>
   <div class="features-grid">
     <div class="feature">
-      <h4>Reliable Automation</h4>
-      <p>Institution-level coding standards with 5+ years of algo trading expertise.</p>
+      <h4>Reliable Automation</h4><p>Institution-level coding standards with 5+ years of algo trading expertise.</p>
     </div>
     <div class="feature">
-      <h4>Full Transparency</h4>
-      <p>Every rule documented clearly. No hidden conditions or risky tricks.</p>
+      <h4>Full Transparency</h4><p>Every rule documented clearly. No hidden conditions or risky tricks.</p>
     </div>
     <div class="feature">
-      <h4>Fast Delivery</h4>
-      <p>Most projects delivered within 3–7 business days depending on complexity.</p>
+      <h4>Fast Delivery</h4><p>Most projects delivered within 3–7 business days depending on complexity.</p>
     </div>
   </div>
 </section>
@@ -280,8 +250,7 @@ footer{
 <!-- Fake Chat -->
 <div id="fakeChatBtn">💬</div>
 <div id="upgradePopup">
-  <strong>Upgrade Required</strong><br>
-  Live chat is available for paid users only.
+  <strong>Upgrade Required</strong><br>Live chat is available for paid users only.
 </div>
 
 <!-- FIREBASE -->
@@ -290,7 +259,7 @@ footer{
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
 <script>
-/* FIREBASE CONFIG (UNCHANGED) */
+// Firebase config
 const firebaseConfig={
   apiKey:"AIzaSyD50zshPzc8VOCWxSGLPz7EcawQb8Qreq4",
   authDomain:"quantbotforge.firebaseapp.com",
@@ -304,7 +273,7 @@ firebase.initializeApp(firebaseConfig);
 const auth=firebase.auth();
 const db=firebase.database();
 
-/* Navbar elements */
+// Elements
 const navbarLinks=document.getElementById("navbar-links");
 const profileContainer=document.getElementById("profileContainer");
 const profileMenu=document.getElementById("profileMenu");
@@ -312,7 +281,7 @@ const planBadge=document.getElementById("planBadge");
 const fakeChatBtn=document.getElementById("fakeChatBtn");
 const upgradePopup=document.getElementById("upgradePopup");
 
-/* VISITOR NAV */
+// Visitor nav
 function showVisitorNav(){
   navbarLinks.innerHTML=`
     <a href="services.html">Services</a>
@@ -326,34 +295,30 @@ function showVisitorNav(){
   planBadge.style.display="none";
 }
 
-/* LOGGED NAV */
+// Logged nav
 function showLoggedNav(email, plan){
   navbarLinks.innerHTML=`
-    <a href="user-home.html">Dashboard</a>
+    <a href="home.html">Dashboard</a>
     <a href="services.html">Services</a>
-    <a href="pricing.html">Pricing</a>
-  `;
-
+    <a href="faq.html">FAQ</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>`;
   const letter=email[0].toUpperCase();
   profileContainer.innerHTML=`<div class="profile-icon" id="profileIcon">${letter}</div>`;
-
   profileMenu.innerHTML=`
     <div class="row"><strong>Plan:</strong><div class="muted">${plan}</div></div>
     <div class="row"><strong>Email:</strong><div class="muted">${email}</div></div>
     <button class="switch-btn" onclick="location.href='login.html'">Switch Account</button>
-    <button class="logout-btn" id="logoutBtn">Logout</button>
-  `;
-
+    <button class="logout-btn" id="logoutBtn">Logout</button>`;
   document.getElementById("logoutBtn").onclick=()=>auth.signOut().then(()=>location.href="index.html");
-
   document.getElementById("profileIcon").onclick=()=>profileMenu.classList.toggle("visible");
 }
 
+// Tawk chat
 let tawkLoaded=false;
 function loadTawk(){
   if(tawkLoaded) return;
   tawkLoaded=true;
-
   var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
   (function(){
     var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
@@ -365,7 +330,7 @@ function loadTawk(){
   })();
 }
 
-/* AUTH CHECK */
+// Auth check and display plan
 auth.onAuthStateChanged(user=>{
   if(!user){showVisitorNav();return;}
 
@@ -374,17 +339,22 @@ auth.onAuthStateChanged(user=>{
   const ref=db.ref("users/"+user.uid);
   ref.once("value").then(snapshot=>{
     const data=snapshot.val()||{};
-    const plan=data.plan||data.plan_name||"Free";
+    let planCode = data.plan || data.plan_name || "none";
     const status=(data.paymentStatus||"").toLowerCase();
     const active=data.plan_active===true;
 
-    showLoggedNav(user.email,plan);
+    // Map paid plans
+    let readablePlan="No Active Plan";
+    if(planCode.startsWith("ppanttt:")){
+      readablePlan="Plan Activated";
+    }
 
-    planBadge.innerHTML=plan;
+    planBadge.innerText=readablePlan;
     planBadge.style.display="inline-block";
+    showLoggedNav(user.email,readablePlan);
 
-    const isPaid=active || status==="success";
-
+    // Chat logic
+    const isPaid=active || status==="success" || planCode.startsWith("ppanttt:");
     if(isPaid){
       fakeChatBtn.style.display="none";
       loadTawk();
