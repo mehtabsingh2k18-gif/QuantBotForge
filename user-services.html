@@ -1,0 +1,639 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>QuantBotForge — Automate Trading Professionally</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* ------------------- THEME ------------------- */
+:root{
+  --accent:#4e8cff;
+  --accent2:#38bdf8;
+  --muted:#94a3b8;
+  --bg:#0b0f19;
+  --card:#111828;
+  --radius:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter;}
+body{background:var(--bg);color:white;overflow-x:hidden;}
+
+/* ------------------- HEADER ------------------- */
+
+
+body {
+  margin:0;
+  font-family: "Poppins", Arial, sans-serif;
+  background: linear-gradient(135deg,#0c0f1a,#1b2236);
+  color:#fff;
+  overflow-x:hidden;
+}
+header {background:rgba(0,0,0,0.35);backdrop-filter:blur(10px);padding:20px 40px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;box-shadow:0 4px 20px rgba(0,0,0,0.3);}
+.logo {font-size:28px;font-weight:800;color:#00d26a;}
+nav a {color:#fff;margin:0 18px;font-size:17px;text-decoration:none;transition:.3s;}
+nav a:hover {color:#00ff80;text-shadow:0 0 10px #00ff80;}
+.user-box {display:flex;align-items:center;gap:15px;}
+.user-plan {background:#00d26a;color:#000;padding:8px 16px;border-radius:10px;font-weight:bold;font-size:16px;}
+.logout-btn {padding:6px 14px;background:#ff4444;border-radius:8px;cursor:pointer;font-weight:bold;}
+.hero {padding:120px 20px 60px 20px;text-align:center;animation:fadeIn 1.4s ease;}
+.hero h1 {font-size:56px;font-weight:800;color:#00d26a;line-height:1.2;}
+.hero p {margin-top:15px;font-size:22px;opacity:0.95;line-height:1.6;}
+.section {max-width:1200px;margin:auto;padding:60px 20px;}
+.section-title {text-align:center;font-size:40px;margin-bottom:25px;color:#00d26a;text-shadow:0 0 12px #00ff80;}
+.card-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:35px;margin-top:50px;}
+.card {background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);padding:35px;border-radius:20px;text-align:center;transition:.4s;backdrop-filter:blur(6px);animation:fadeIn 1.5s ease;}
+.card:hover {transform:translateY(-12px) scale(1.05);box-shadow:0 0 30px rgba(0,255,140,0.6);}
+.card h3 {font-size:26px;color:#00d26a;margin-bottom:15px;}
+.card p {opacity:0.95;margin-bottom:20px;font-size:18px;line-height:1.5;}
+.card ul {text-align:left;list-style:none;padding:0;margin-bottom:25px;font-size:16px;}
+.card ul li {margin-bottom:12px;opacity:0.9;}
+.btn {background:#00d26a;color:#000;padding:14px 32px;border-radius:12px;font-weight:bold;font-size:16px;text-decoration:none;transition:.3s;}
+.btn:hover {background:#00ff80;box-shadow:0 0 20px #00ff80;}
+.info-section {max-width:1000px;margin:auto;padding:60px 25px;background:rgba(0,0,0,0.3);border-radius:20px;margin-top:60px;text-align:left;animation:fadeIn 1.5s ease;}
+.info-section h2 {font-size:36px;margin-bottom:20px;color:#00d26a;}
+.info-section h3 {font-size:28px;margin-bottom:15px;color:#00ff80;}
+.info-section p {font-size:20px;line-height:1.8;margin-bottom:25px;opacity:0.95;}
+.info-section ul {list-style:disc;padding-left:25px;text-align:left;margin:15px 0 25px 0;font-size:18px;}
+.info-section ul li {margin-bottom:12px;opacity:0.95;}
+@keyframes fadeIn {from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes slideUp {from{opacity:0;transform:translateY(60px);}to{opacity:1;transform:translateY(0);}}
+@media(max-width:700px){.hero h1{font-size:38px;}.hero p{font-size:20px;}nav{display:none;}}
+
+:root{
+  --accent:#4e8cff;
+  --accent2:#38bdf8;
+  --muted:#94a3b8;
+  --bg:#0b0f19;
+  --card:#111828;
+  --radius:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter;}
+body{background:var(--bg);color:white;overflow-x:hidden;scroll-behavior:smooth;}
+
+/* ------------------- HEADER ------------------- */
+header{
+  position:sticky; top:0; z-index:50;
+  background:rgba(11,15,25,0.9);
+  backdrop-filter:blur(8px);
+  padding:16px 30px;
+  display:flex; justify-content:space-between; align-items:center;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.logo{font-size:22px;font-weight:800;letter-spacing:1px;}
+nav a{
+  color:#e2e8f0;margin:0 12px;text-decoration:none;font-weight:600;transition:0.25s;
+}
+nav a:hover{color:var(--accent);}
+.nav-right{display:flex;align-items:center;gap:16px;}
+.profile-icon{
+  width:45px;height:45px;border-radius:10px;
+  background:var(--accent);display:flex;align-items:center;
+  justify-content:center;font-weight:700;cursor:pointer;
+}
+.plan-badge{
+  border:1px solid var(--accent);
+  padding:6px 10px;border-radius:10px;font-size:13px;
+  display:none;
+}
+.nav-btn{
+  padding:8px 16px;border-radius:10px;font-weight:700;
+  cursor:pointer;text-decoration:none;font-size:14px;
+  transition:0.2s;
+}
+.nav-btn.login{border:1px solid var(--accent);color:var(--accent);background:transparent;}
+.nav-btn.login:hover{background:rgba(78,140,255,0.1);}
+.nav-btn.signup{background:var(--accent);color:white;}
+.nav-btn.signup:hover{transform:scale(1.05);}
+
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+  margin-left:10px;
+}
+.hamburger div {
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+.navbar-mobile {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  position: absolute;
+  top: 70px;
+  right: 30px;
+  background: rgba(11,15,25,0.95);
+  padding: 20px;
+  border-radius: 12px;
+}
+.navbar-mobile a {
+  color: #e2e8f0;
+  font-size: 16px;
+}
+.navbar-mobile.show {display: flex;}
+
+/* ------------------- RESPONSIVE ------------------- */
+@media (max-width: 1024px){
+  .hero h1{font-size:42px;}
+  .hero p{font-size:17px;}
+}
+@media (max-width: 768px){
+  header{padding:12px 20px;}
+  nav{display:none;}
+  .hamburger{display:flex; order:1;} /* Hamburger at right side */
+  .cta-row{flex-direction:column;gap:12px;}
+  .hero h1{font-size:36px;}
+  .hero p{font-size:16px;}
+  .plan-grid{grid-template-columns:1fr;}
+  .features-grid{grid-template-columns:1fr;}
+  .video-box{height:280px;}
+  .nav-right{gap:10px;}
+}
+@media (max-width: 480px){
+  .hero h1{font-size:28px;}
+  .hero p{font-size:14px;}
+  .btn{padding:12px 20px;font-size:14px;}
+  .info-section{padding:40px 15px;}
+}
+header{
+  position:sticky; top:0; z-index:50;
+  background:rgba(11,15,25,0.8);
+  backdrop-filter:blur(8px);
+  padding:16px 30px;
+  display:flex; justify-content:space-between; align-items:center;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.logo{font-size:22px;font-weight:800;}
+nav a{
+  color:#e2e8f0;margin:0 12px;text-decoration:none;font-weight:600;
+}
+nav a:hover{color:var(--accent);}
+
+.nav-right{display:flex;align-items:center;gap:16px;}
+.profile-icon{
+  width:45px;height:45px;border-radius:10px;
+  background:var(--accent);display:flex;align-items:center;
+  justify-content:center;font-weight:700;cursor:pointer;
+}
+.plan-badge{
+  border:1px solid var(--accent);
+  padding:6px 10px;border-radius:10px;font-size:13px;
+  display:none;
+}
+
+/* Profile menu */
+.profile-menu{
+  display:none;position:absolute;right:30px;top:80px;
+  background:#151c2f;border-radius:12px;width:260px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.4);padding:16px;z-index:200;
+}
+.profile-menu.visible{display:block;}
+.profile-menu .row{margin-bottom:10px;font-size:14px;}
+.profile-menu .muted{color:var(--muted);font-size:13px;}
+.logout-btn,.switch-btn{
+  width:100%;padding:10px;border:none;border-radius:10px;
+  margin-top:10px;font-size:15px;font-weight:700;cursor:pointer;
+}
+.logout-btn{background:#ef4444;color:white;}
+.switch-btn{background:#0ea5e9;color:white;}
+
+/* ------------------- HERO ------------------- */
+.hero{
+  padding:90px 30px 60px;
+  text-align:center;
+  max-width:900px;
+  margin:auto;
+  animation:fadeIn 1.4s ease;
+}
+.hero h1{
+  font-size:44px;font-weight:800;margin-bottom:18px;
+  background: linear-gradient(90deg,#4e8cff,#38bdf8);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+.hero p{color:var(--muted);font-size:18px;line-height:28px;}
+
+.cta-row{margin-top:30px;display:flex;gap:14px; justify-content:center;}
+.btn{
+  padding:14px 24px;border-radius:12px;font-size:16px;
+  font-weight:700;cursor:pointer;text-decoration:none;
+}
+.btn-primary{background:var(--accent);color:white;}
+.btn-secondary{background:transparent;border:1px solid var(--accent);color:var(--accent);}
+.btn-primary:hover{opacity:0.85;}
+.btn-secondary:hover{background:rgba(78,140,255,0.1);}
+
+/* ------------------- VIDEO BLOCK ------------------- */
+.video-section{
+  margin:60px auto;max-width:900px;padding:20px;text-align:center;
+  animation:slideUp 1s ease;
+}
+.video-box{
+  width:100%;height:420px;background:#1b253b;border-radius:18px;
+  display:flex;justify-content:center;align-items:center;
+  color:#475569;font-size:20px;letter-spacing:1px;
+  border:1px solid rgba(255,255,255,0.05);
+}
+
+/* ------------------- PLANS ------------------- */
+.plans{
+  max-width:1200px;margin:70px auto;padding:0 20px;
+  text-align:center;
+}
+.plans h2{font-size:32px;font-weight:800;margin-bottom:40px;}
+
+.plan-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:22px;
+}
+.plan-card{
+  background:#111828;border:1px solid rgba(255,255,255,0.06);
+  padding:26px;border-radius:18px;text-align:left;
+  transition:0.3s;animation:fadeIn 1.2s ease;
+}
+.plan-card:hover{transform:translateY(-6px);}
+
+.plan-card h3{font-size:22px;margin-bottom:8px;}
+.plan-card .price{font-size:30px;font-weight:800;margin-bottom:12px;color:var(--accent2);}
+.plan-card p{color:var(--muted);margin-bottom:8px;font-size:14px;}
+.plan-card button{
+  margin-top:14px;width:100%;padding:12px;border-radius:10px;
+  background:var(--accent);color:white;border:none;font-weight:700;
+  cursor:pointer;
+}
+.plan-card button:hover{opacity:0.85;}
+
+/* ------------------- SECTIONS ------------------- */
+.section{
+  max-width:1100px;margin:60px auto;padding:0 20px;text-align:center;
+}
+.section h2{font-size:32px;font-weight:800;margin-bottom:30px;}
+.features-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:22px;
+}
+.feature{
+  background:#111828;padding:26px;border-radius:16px;
+  border:1px solid rgba(255,255,255,0.06);
+  animation:slideUp 0.8s ease;
+}
+.feature h4{font-size:20px;margin-bottom:8px;}
+.feature p{color:var(--muted);font-size:15px;}
+
+/* ------------------- FOOTER ------------------- */
+footer{
+  margin-top:80px;text-align:center;padding:26px;
+  color:var(--muted);font-size:14px;
+}
+
+/* ------------------- ANIMATIONS ------------------- */
+@keyframes fadeIn{
+  0%{opacity:0;transform:translateY(20px);}
+  100%{opacity:1;transform:translateY(0);}
+}
+@keyframes slideUp{
+  0%{opacity:0;transform:translateY(40px);}
+  100%{opacity:1;transform:translateY(0);}
+}
+
+/* Fake chat */
+#fakeChatBtn{
+  position:fixed;bottom:26px;right:26px;width:60px;height:60px;
+  background:var(--accent);border-radius:50%;display:none;
+  justify-content:center;align-items:center;font-size:28px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.4);cursor:pointer;
+}
+
+/* Upgrade popup */
+#upgradePopup{
+  display:none;position:fixed;bottom:100px;right:26px;width:260px;
+  padding:18px;background:#fff;color:#000;border-radius:12px;
+  font-size:15px;box-shadow:0 20px 40px rgba(0,0,0,0.25);z-index:999;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">QuantBotForge</div>
+  <nav id="navbar-links"></nav>
+  <div class="nav-right">
+    <div class="plan-badge" id="planBadge"></div>
+    <div id="profileContainer"></div>
+  </div>
+</header>
+
+<div id="profileMenu" class="profile-menu"></div>
+<!-- HERO SECTION -->
+<section class="hero">
+  <h1>Welcome to a New Era of Trading</h1>
+  <p>Stop guessing, stop manual errors. Let QuantBotForge automate your strategy, guide your decisions, and help you focus on what matters most — growing your trading potential.</p>
+</section>
+
+<!-- PLANS SECTION -->
+<section class="section">
+  <h2 class="section-title">Our Plans — Pick What Fits You</h2>
+  <div class="card-grid">
+    <div class="card">
+      <h3>Entry Plan — $19</h3>
+      <p>Just starting out? We got you.</p>
+      <ul>
+        <li>24-hour discussion support — we help you find your best bot.</li>
+        <li>Sample bot demonstration — see it in action.</li>
+        <li>Guidance to choose the right plan for your goals.</li>
+        <li>Ask anything about services — no question is too small.</li>
+      </ul>
+      <a href="payment.html?plan=entry" class="btn">Subscribe Now</a>
+    </div>
+
+    <div class="card">
+      <h3>Basic Plan — $299</h3>
+      <p>Automate one full strategy with support and guidance.</p>
+      <ul>
+        <li>7-day chat & email support — get help when you need it.</li>
+        <li>Full bot delivered — ready to use.</li>
+        <li>1 revision included — tweak and optimize.</li>
+        <li>Bot logic is confidential — property of QuantBotForge.</li>
+      </ul>
+      <a href="payment.html?plan=basic" class="btn">Buy Now</a>
+    </div>
+
+    <div class="card">
+      <h3>Pro Plan — $899</h3>
+      <p>Professional-grade automation for serious traders.</p>
+      <ul>
+        <li>Multi-condition bots — handle complex strategies.</li>
+        <li>Custom indicator integration — tailor to your trading style.</li>
+        <li>1-month chat support — we guide you through every step.</li>
+        <li>Backtest report included — see historical performance.</li>
+        <li>Bot logic remains confidential — your strategies stay private.</li>
+      </ul>
+      <a href="payment.html?plan=pro" class="btn">Buy Now</a>
+    </div>
+
+    <div class="card">
+      <h3>Premium Plan — $2500+</h3>
+      <p>Institution-level automation, complete privacy, priority support.</p>
+      <ul>
+        <li>24/7 priority support and dedicated VPS setup.</li>
+        <li>NDA for complete confidentiality.</li>
+        <li>Advanced features — custom solutions available (additional charges may apply).</li>
+        <li>Bot logic remains property of QuantBotForge.</li>
+        <li>Access to all communication platforms.</li>
+      </ul>
+      <a href="payment.html?plan=premium" class="btn">Buy Now</a>
+    </div>
+  </div>
+</section>
+
+<!-- ENGAGING INFO SECTIONS -->
+<section class="info-section">
+  <h2>Why You Should Trust Us</h2>
+  <p>We’re not here to sell you empty promises. QuantBotForge is built for traders who want clarity, control, and automation that actually works. Whether you are starting out or running an institutional strategy, we help you achieve your goals with confidence.</p>
+  <p>Platforms we support:</p>
+  <ul>
+    <li>MetaTrader 4 & 5 — the world’s most trusted trading platforms</li>
+    <li>TradingView — integrate signals and alerts seamlessly</li>
+    <li>Most popular global brokers — flexibility to trade anywhere</li>
+  </ul>
+</section>
+
+<section class="info-section">
+  <h2>Backtesting Explained — Know Before You Trade</h2>
+  <p>Every Pro & Premium plan comes with a detailed backtest. Here’s what you get:</p>
+  <ul>
+    <li>Simulation of your strategy on historical data.</li>
+    <li>Profit/loss charts — see what could have happened.</li>
+    <li>Trade frequency, market condition analysis, drawdown insights.</li>
+    <li>Remember: Backtests are for reference — past performance doesn’t guarantee future results.</li>
+  </ul>
+</section>
+
+<section class="info-section">
+  <h2>Important Disclaimer</h2>
+  <p>At QuantBotForge, we take automation seriously. But we need you to understand one very important thing: we are here to automate <strong>your chosen strategy</strong>. This means we do not create trades on our own, we do not modify your logic, and we do not add features beyond what your selected plan includes. The bots simply execute your strategy based on the rules you define.</p>
+
+  <p>Trading involves inherent risk. The markets can be unpredictable. Even with automation, there is no guarantee of profits. If a trade results in a loss, that loss is <strong>entirely your responsibility</strong>. QuantBotForge provides the tools, guidance, and automation infrastructure — but the decisions and the strategy remain under your control. This is why understanding your trading plan, risk management rules, and investment limits is crucial before subscribing to any plan.</p>
+
+  <p>We strongly encourage all users to:</p>
+  <ul>
+    <li>Start with a plan that fits your experience level.</li>
+    <li>Test your strategy in a demo environment if possible.</li>
+    <li>Only risk capital that you can afford to lose.</li>
+    <li>Use the chat and discussion support to clarify doubts before executing live trades.</li>
+  </ul>
+
+  <p>Remember, automation is a tool — a powerful tool — but it is not a magic solution. The best results come from a combination of a sound strategy, discipline, and understanding of the market. QuantBotForge provides everything you need to automate effectively, but the responsibility of results always lies with the trader.</p>
+</section>
+
+<section class="info-section">
+  <h2>Our Mission</h2>
+  <p>QuantBotForge was created with one goal in mind: to make professional-grade automated trading accessible to everyone. From beginners who are just learning the ropes to professional traders and institutions, our mission is to provide:</p>
+  <ul>
+    <li><strong>Technology:</strong> Robust, secure bots capable of executing complex strategies efficiently.</li>
+    <li><strong>Guidance:</strong> Personalized support to help you choose the right plan, understand bot behavior, and optimize your strategy.</li>
+    <li><strong>Confidentiality:</strong> We respect your trading logic. All strategies and personal configurations are protected under our platform rules. Premium users can even secure NDAs for additional privacy.</li>
+  </ul>
+
+  <p>We believe automation should enhance a trader’s experience, reduce errors, and provide clarity and structure to decision-making. Our platform is designed not just to provide bots, but to educate, guide, and support users in every step of their trading journey. We aim to be more than a service — we aim to be a partner in your success.</p>
+
+  <p>Every feature we develop, every update we roll out, and every support interaction is built around helping you gain confidence in automated trading, make informed decisions, and avoid unnecessary risk. Your growth as a trader is our ultimate mission.</p>
+
+  <p>With QuantBotForge, you are not just buying a bot — you are entering a community, gaining access to expertise, and receiving tools that professional traders rely on.</p>
+</section>
+
+<section class="info-section">
+  <h2>Choose the Right Plan for You</h2>
+  <p>Selecting the right plan can make the difference between confusion and confidence. The right plan ensures that you receive the correct level of support, guidance, and features to match your trading goals. Here’s an expanded look at each option:</p>
+
+  <h3>Entry Plan</h3>
+  <p>This plan is perfect for beginners who are exploring automation for the first time. You will receive:</p>
+  <ul>
+    <li>24-hour discussion support: Ask questions, clarify doubts, and explore bot capabilities freely.</li>
+    <li>Sample bot demonstration: Get hands-on experience to understand how automation works.</li>
+    <li>Guidance on choosing the right plan: Our support team will help you identify the bot and plan that best fit your goals.</li>
+    <li>Strategy exploration: Learn which market conditions suit your trading approach.</li>
+  </ul>
+  <p>This plan is ideal if you want to start learning without committing a large amount of capital. The Entry Plan allows you to understand the power of automation and see how it can complement your trading style.</p>
+
+  <h3>Basic Plan</h3>
+  <p>For traders who want to automate a single strategy effectively. With the Basic Plan, you receive:</p>
+  <ul>
+    <li>7-day chat and email support: Resolve doubts and fine-tune your strategy quickly.</li>
+    <li>Delivery of a full bot: Your chosen strategy is automated and ready to execute.</li>
+    <li>1 revision: Optimize and adjust the bot for better performance.</li>
+    <li>Confidentiality: Your bot logic remains protected by QuantBotForge rules.</li>
+  </ul>
+  <p>The Basic Plan is perfect if you are serious about automating your strategy but do not yet need advanced multi-condition logic. It allows you to experience automation at a professional level while still having a clear support window.</p>
+
+  <h3>Pro Plan</h3>
+  <p>Professional traders with more complex needs will find the Pro Plan ideal. Key features include:</p>
+  <ul>
+    <li>Multi-condition bots: Execute sophisticated strategies with multiple conditions and indicators.</li>
+    <li>Custom indicator integration: Tailor the bot to your exact trading style.</li>
+    <li>1-month chat support: Continuous guidance for optimization and troubleshooting.</li>
+    <li>Backtest report: See historical performance and refine your approach.</li>
+    <li>Access to discussion platforms: Learn from other traders and share insights.</li>
+  </ul>
+  <p>This plan is suitable for traders who have some experience and want automation to handle complexity. Backtesting provides historical insights, but remember, all trading carries risk. We provide tools and guidance — you make the decisions.</p>
+
+  <h3>Premium Plan</h3>
+  <p>Our Premium Plan is designed for institutions or traders demanding the highest level of automation. Features include:</p>
+  <ul>
+    <li>24/7 priority support and consultation.</li>
+    <li>Dedicated VPS setup for uninterrupted trading.</li>
+    <li>Advanced customization and additional features (may incur extra charges).</li>
+    <li>NDA for complete confidentiality.</li>
+    <li>Full access to all discussion and chat platforms.</li>
+  </ul>
+  <p>The Premium Plan is for those who want complete control, privacy, and professional-grade automation. It ensures you have the tools and guidance to implement sophisticated strategies without compromising confidentiality.</p>
+
+  <p>Our advice: Start with the plan that matches your experience and risk tolerance. Entry for beginners, Basic for standard automation, Pro for advanced strategies, and Premium for full institutional-grade solutions.</p>
+</section>
+
+<section class="info-section">
+  <h2>Ready to Get Started?</h2>
+  <p>Your trading journey starts today. Imagine having the power to automate strategies, reduce manual errors, and focus on decision-making rather than execution. QuantBotForge is here to guide you every step of the way. By choosing a plan, you gain:</p>
+
+  <ul>
+    <li>Access to professional trading bots tailored to your strategy.</li>
+    <li>Personalized support to ensure smooth setup and operation.</li>
+    <li>Educational guidance on understanding market conditions and automation advantages.</li>
+    <li>Confidence in your decisions, knowing automation executes exactly what you designed.</li>
+  </ul>
+
+  <p>We understand the hesitation — investing in automation can feel intimidating. But our goal is to make it easy, clear, and reliable. Our team is available to discuss your needs, answer questions, and ensure that you are confident before committing. Automation should empower, not confuse.</p>
+
+  <p>Stop wasting time on manual trades. Start learning, start optimizing, and let automation work for you. Whether your goal is to explore, optimize, or operate at an institutional level, we have a plan that fits your ambitions.</p>
+
+  <p><strong>Take action now.</strong> Pick the plan that aligns with your goals and start your automated trading journey. QuantBotForge is your partner — not just a service provider, but a guide, a teacher, and a support system. Your trading future is in your hands, but with QuantBotForge, you are never alone.</p>
+
+  <a href="payment.html" class="btn" style="display:inline-block;margin-top:20px;">Subscribe Now</a>
+</section>
+
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<script>
+/* FIREBASE CONFIG (UNCHANGED) */
+const firebaseConfig={
+  apiKey:"AIzaSyD50zshPzc8VOCWxSGLPz7EcawQb8Qreq4",
+  authDomain:"quantbotforge.firebaseapp.com",
+  databaseURL:"https://quantbotforge-default-rtdb.firebaseio.com",
+  projectId:"quantbotforge",
+  storageBucket:"quantbotforge.firebasestorage.app",
+  messagingSenderId:"792940932432",
+  appId:"1:792940932432:web:6eb33f04937fba8a301055"
+};
+firebase.initializeApp(firebaseConfig);
+const auth=firebase.auth();
+const db=firebase.database();
+
+/* Navbar elements */
+const navbarLinks=document.getElementById("navbar-links");
+const profileContainer=document.getElementById("profileContainer");
+const profileMenu=document.getElementById("profileMenu");
+const planBadge=document.getElementById("planBadge");
+const fakeChatBtn=document.getElementById("fakeChatBtn");
+const upgradePopup=document.getElementById("upgradePopup");
+
+/* VISITOR NAV */
+function showVisitorNav(){
+  navbarLinks.innerHTML=`
+     <a href="index.html">Home</a>
+    <a href="user-services.html">Services</a>
+    <a href="about us.html">About Us</a>
+    <a href="user-faq.html">Faq</a>
+    <a href="contact us.html">Contact Us</a>
+    <a href="user-signup.html">Sign Up</a>
+    <a href="user-login.html">Login</a>`;
+  profileContainer.innerHTML="";
+  planBadge.style.display="none";
+}
+
+/* LOGGED NAV */
+function showLoggedNav(email, plan){
+  navbarLinks.innerHTML=`
+     <a href="index.html">Home</a>
+    <a href="user-services.html">Services</a>
+    <a href="about us.html">About Us</a>
+    <a href="user-faq.html">Faq</a>
+    <a href="contact us.html">Contact Us</a>
+   
+  `;
+
+  const letter=email[0].toUpperCase();
+  profileContainer.innerHTML=`<div class="profile-icon" id="profileIcon">${letter}</div>`;
+
+  profileMenu.innerHTML=`
+    <div class="row"><strong>Plan:</strong><div class="muted">${plan}</div></div>
+    <div class="row"><strong>Email:</strong><div class="muted">${email}</div></div>
+    <button class="switch-btn" onclick="location.href='login.html'">Switch Account</button>
+    <button class="logout-btn" id="logoutBtn">Logout</button>
+  `;
+
+  document.getElementById("logoutBtn").onclick=()=>auth.signOut().then(()=>location.href="index.html");
+
+  document.getElementById("profileIcon").onclick=()=>profileMenu.classList.toggle("visible");
+}
+
+let tawkLoaded=false;
+function loadTawk(){
+  if(tawkLoaded) return;
+  tawkLoaded=true;
+
+  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src="https://embed.tawk.to/6921b672a45b0c1967397786/1jalr1c4n";
+    s1.charset="UTF-8";
+    s1.setAttribute("crossorigin","*");
+    s0.parentNode.insertBefore(s1,s0);
+  })();
+}
+
+/* AUTH CHECK */
+auth.onAuthStateChanged(user=>{
+  if(!user){showVisitorNav();return;}
+
+  showLoggedNav(user.email,"Loading…");
+
+  const ref=db.ref("users/"+user.uid);
+  ref.once("value").then(snapshot=>{
+    const data=snapshot.val()||{};
+    const plan=data.plan||data.plan_name||"Free";
+    const status=(data.paymentStatus||"").toLowerCase();
+    const active=data.plan_active===true;
+
+    showLoggedNav(user.email,plan);
+
+    planBadge.innerHTML=plan;
+    planBadge.style.display="inline-block";
+
+    const isPaid=active || status==="success";
+
+    if(isPaid){
+      fakeChatBtn.style.display="none";
+      loadTawk();
+    }else{
+      fakeChatBtn.style.display="flex";
+      fakeChatBtn.onclick=()=>{
+        upgradePopup.style.display="block";
+        setTimeout(()=>upgradePopup.style.display="none",3000);
+      };
+    }
+  });
+});
+</script>
+
+</body>
+</html>

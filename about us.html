@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>About Us — QuantBotForge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+<style>
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #0b0f19;
+    color: #fff;
+    overflow-x: hidden;
+  }
+
+  /* Smooth fade-in animations */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 1.2s ease forwards;
+  }
+
+  @keyframes fadeUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Navbar */
+  header {
+    width: 100%;
+    padding: 25px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    background: rgba(10, 14, 25, 0.55);
+  }
+
+  header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+
+  nav a {
+    margin-left: 25px;
+    text-decoration: none;
+    color: #ffffffb3;
+    font-weight: 400;
+    transition: 0.3s;
+  }
+
+  nav a:hover {
+    color: #fff;
+  }
+
+  /* Hero Section */
+  .hero {
+    width: 100%;
+    padding: 160px 10% 120px;
+    text-align: center;
+    background: linear-gradient(180deg, #0b0f19 0%, #12182a 100%);
+  }
+
+  .hero h2 {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .hero p {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #c9c9c9;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Animated cards */
+  .section {
+    padding: 100px 10%;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 35px;
+    margin-top: 40px;
+  }
+
+  .card {
+    padding: 35px;
+    background: #111728;
+    border-radius: 16px;
+    transition: 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card:hover {
+    transform: translateY(-8px);
+    background: #151d34;
+  }
+
+  .card h3 {
+    font-size: 22px;
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+
+  .card p {
+    font-size: 15px;
+    color: #c5c5c5;
+  }
+
+  /* Glow animation */
+  .glow {
+    position: absolute;
+    width: 160px;
+    height: 160px;
+    background: #0070f3;
+    filter: blur(90px);
+    opacity: 0.25;
+    animation: float 6s infinite alternate;
+    top: -40px;
+    right: -40px;
+  }
+
+  @keyframes float {
+    from { transform: translateY(0); }
+    to { transform: translateY(25px); }
+  }
+
+  /* Footer */
+  footer {
+    padding: 40px 10%;
+    text-align: center;
+    color: #9e9e9e;
+    font-size: 14px;
+    border-top: 1px solid #1c1f2d;
+    margin-top: 50px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>QuantBotForge</h1>
+  <nav>
+     <a href="index.html">Home</a>
+    <a href="user-services.html">Services</a>
+    <a href="about us.html">About Us</a>
+    <a href="user-faq.html">Faq</a>
+    <a href="contact us.html">Contact Us</a>
+
+  </nav>
+</header>
+
+<section class="hero fade-up">
+  <h2>We Build Automated Trading Systems That Work</h2>
+  <p>
+    At QuantBotForge, we design intelligent automation for traders, investors, and institutions.
+    Our goal is simple — empower you with systems that work even while you sleep.
+  </p>
+</section>
+
+<section class="section fade-up">
+  <h2 style="text-align:center; font-size:32px; font-weight:600;">Why Choose Us?</h2>
+
+  <div class="cards">
+    <div class="card fade-up" style="animation-delay:0.2s;">
+      <div class="glow"></div>
+      <h3>Real Quant Experience</h3>
+      <p>Our bots are engineered using institutional logic — tested, optimized, and performance‑driven.</p>
+    </div>
+
+    <div class="card fade-up" style="animation-delay:0.4s;">
+      <div class="glow"></div>
+      <h3>Tailored to Your Strategy</h3>
+      <p>If you can imagine a trading rule, we can automate it with precision and clean execution.</p>
+    </div>
+
+    <div class="card fade-up" style="animation-delay:0.6s;">
+      <div class="glow"></div>
+      <h3>Secure & Trusted Process</h3>
+      <p>Encrypted delivery, NDA options, and dedicated support keep your strategies safe.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section fade-up">
+  <h2 style="text-align:center; font-size:32px; font-weight:600;">Our Mission</h2>
+  <p style="max-width:800px; margin:auto; text-align:center; margin-top:20px; color:#c9c9c9; font-size:17px;">
+    To bring hedge‑fund level automation to everyday traders. We believe advanced trading
+    tools should not be limited to big institutions — everyone deserves access to smart automation.
+  </p>
+</section>
+
+<footer>
+  © 2025 QuantBotForge — All Rights Reserved
+</footer>
+
+</body>
+</html>

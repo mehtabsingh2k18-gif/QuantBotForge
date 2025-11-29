@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QuantBotForge — Payment Successful</title>
+
+  <style>
+    body {
+      margin:0;
+      font-family: "Inter", Arial, sans-serif;
+      background: linear-gradient(135deg,#0c0f1a,#1b2236);
+      color:#fff;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      min-height:100vh;
+      text-align:center;
+      padding:20px;
+    }
+
+    .container {
+      max-width: 600px;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity:0; transform: translateY(20px); }
+      to { opacity:1; transform: translateY(0); }
+    }
+
+    .checkmark {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: #1c2b4a;
+      border: 4px solid #4e8cff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin: 0 auto 25px;
+      position: relative;
+      animation: pop 0.8s ease-out forwards;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.2); opacity:0; }
+      100% { transform: scale(1); opacity:1; }
+    }
+
+    .checkmark svg { width: 70px; fill: #4e8cff; }
+
+    h1 { font-size: 34px; margin-bottom: 10px; font-weight: 700; }
+    p { font-size: 18px; color: #c9d3e0; margin-bottom: 15px; line-height: 1.6; }
+
+    .plan-box {
+      margin-top:25px;
+      padding:20px;
+      background:#132035;
+      border-radius:12px;
+      border: 1px solid #3f4f70;
+      text-align:left;
+      animation: fadeIn 1.8s ease-in-out;
+    }
+
+    .plan-box h2 { font-size:24px; margin-bottom:10px; color:#4e8cff; }
+
+    .btn {
+      margin-top:30px;
+      padding:14px 30px;
+      background:#4e8cff;
+      border:none;
+      border-radius:10px;
+      font-size:18px;
+      cursor:pointer;
+      transition:0.2s;
+      color:#fff;
+    }
+    .btn:hover { background:#346fe0; transform: scale(1.05); }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="checkmark">
+    <svg viewBox="0 0 24 24">
+      <path d="M20.285 6.709l-11.4 11.4-5.657-5.657 1.414-1.415 4.243 4.243 9.986-9.986z"/>
+    </svg>
+  </div>
+
+  <h1>Payment Successful 🎉</h1>
+  <p>Your purchase has been verified and your plan is now active.</p>
+
+  <div class="plan-box">
+    <h2 id="planName">Your Plan: ...</h2>
+    <p id="planFeatures"></p>
+    <p id="purchaseDate"></p>
+  </div>
+
+  <button class="btn" onclick="window.location.href='user-home-dashboard.html'">Go to Dashboard</button>
+</div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<script>
+  // ==== Firebase Config ====
+  const firebaseConfig = {
+    apiKey: "AIzaSyD50zshPzc8VOCWxSGLPz7EcawQb8Qreq4",
+    authDomain: "quantbotforge.firebaseapp.com",
+    databaseURL: "https://quantbotforge-default-rtdb.firebaseio.com",
+    projectId: "quantbotforge",
+    storageBucket: "quantbotforge.firebasestorage.app",
+    messagingSenderId: "792940932432",
+    appId: "1:792940932432:web:6eb33f04937fba8a301055"
+  };
+  firebase.initializeApp(firebaseConfig);
+
+  // Read URL params
+  const urlParams = new URLSearchParams(window.location.search);
+  let plan = urlParams.get("plan") || "";
+  let status = urlParams.get("status") || "";
+
+  // Convert plan to readable text
+  const PLAN_NAMES = {
+    "entry": "Entry Plan",
+    "basic": "Basic Plan",
+    "pro": "Pro Plan",
+    "premium": "Premium Plan"
+  };
+
+  const PLAN_DETAILS = {
+    "entry": "Perfect for beginners. Get your first automated trading experience, explore bot behaviour, learn risk control and understand automation.",
+    "basic": "Ideal for regular traders. Automate one strategy, get stable bot performance and short-term support for maintaining your trading setup.",
+    "pro": "Advanced traders choose this. Multi-strategy automation, deeper insights, extended support and full backtesting access included.",
+    "premium": "Institution-level experience. Priority support, NDA-based privacy, custom-built strategies and top-tier automation performance."
+  };
+
+  const readablePlan = PLAN_NAMES[plan] || "Basic Plan";
+  const planDetails = PLAN_DETAILS[plan] || PLAN_DETAILS.basic;
+  const now = new Date().toLocaleString();
+
+  // Display on page
+  document.getElementById("planName").innerText = readablePlan;
+  document.getElementById("planFeatures").innerText = planDetails;
+  document.getElementById("purchaseDate").innerText = "Purchase Date: " + now;
+
+  // Update Firebase
+  firebase.auth().onAuthStateChanged(user => {
+    if (!user) {
+      window.location.href = "user-home-dashboard.html";
+      return;
+    }
+
+    if(plan) {
+      firebase.database().ref("users/" + user.uid).update({
+        plan: "ppanttt:" + plan,   // use prefix to mark activated
+        paymentStatus: "success",
+        purchaseDate: now
+      }).then(() => {
+        console.log("Plan activated in Firebase!");
+      }).catch(err => console.error(err));
+    }
+  });
+</script>
+
+</body>
+</html>
