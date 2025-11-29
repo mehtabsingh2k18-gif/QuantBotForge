@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>QuantBotForge — Automate Trading Professionally</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+<!-- PNG Icons -->
+<link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png" />
+<link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png" />
+
+<!-- For Apple Devices -->
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 
 <style>
 /* ------------------- THEME ------------------- */
@@ -257,16 +266,16 @@ footer{
 
   <nav id="navbar-links">
     <a href="index.html">Home</a>
-    <a href="services.html">Services</a>
+    <a href="user-services.html">Services</a>
     <a href="about us.html">About Us</a>
-    <a href="faq.html">faq</a>
+    <a href="user-faq.html">Faq</a>
     <a href="contact us.html">Contact Us</a>
   </nav>
 
   <div class="nav-right">
     <div class="plan-badge" id="planBadge"></div>
-    <a href="login.html" class="nav-btn login">Login</a>
-    <a href="signup.html" class="nav-btn signup">Sign Up</a>
+    <a href="user-login.html" class="nav-btn login">Login</a>
+    <a href="user-signup.html" class="nav-btn signup">Sign Up</a>
     <div class="hamburger" id="hamburger">
       <div></div>
       <div></div>
@@ -275,11 +284,11 @@ footer{
   </div>
 
   <div class="navbar-mobile" id="mobileNav">
-    <a href="#hero">Home</a>
-    <a href="#video">Services</a>
-    <a href="#about">About Us</a>
-    <a href="#plans">Plans</a>
-    <a href="#contact">Contact Us</a>
+     <a href="index.html">Home</a>
+    <a href="user-services.html">Services</a>
+    <a href="about us.html">About Us</a>
+    <a href="user-faq.html">Faq</a>
+    <a href="contact us.html">Contact Us</a>
   </div>
 </header>
 
@@ -289,10 +298,66 @@ footer{
   <p>Professional MT4 & MT5 Bots — Built With Precision, Transparency, and Real Strategy Logic.</p>
   <div class="cta-row">
     <a href="#plans" class="btn btn-primary">View Plans</a>
-    <a href="#video" class="btn btn-secondary">Watch Demo</a>
+    <a href="user-services.html" class="btn btn-secondary">Services</a>
+  </div>
+</section>
+<!-- WHAT WE DO / QUICK INFO BLOCK -->
+<section class="info-quick" style="max-width:900px; margin:40px auto; text-align:center; padding:20px; background:rgba(17,24,40,0.7); border-radius:16px;">
+  <h2 style="font-size:32px; margin-bottom:20px; color:#38bdf8;">Turn Your Manual Trading Into Automated Bots</h2>
+  <p style="color:#94a3b8; font-size:18px; line-height:28px; max-width:700px; margin:auto;">
+    We take your manual trading logic and convert it into fully automated strategies. 
+    Works with Forex, MT4, and MT5 on supported brokers. 
+    Your rules execute automatically — no monitoring needed.
+  </p>
+  <div style="margin-top:20px; display:flex; justify-content:center; gap:15px; flex-wrap:wrap;">
+    <div style="background:#4e8cff; color:white; padding:12px 20px; border-radius:12px; font-weight:700;">MT4/MT5 Compatible</div>
+    <div style="background:#38bdf8; color:white; padding:12px 20px; border-radius:12px; font-weight:700;">Fully Automated</div>
+    <div style="background:#00ff80; color:black; padding:12px 20px; border-radius:12px; font-weight:700;">Supports Forex Brokers</div>
+    <div style="background:#ef4444; color:white; padding:12px 20px; border-radius:12px; font-weight:700;">Hands-Free Execution</div>
   </div>
 </section>
 
+
+
+
+<!-- PLANS -->
+<section id="plans" class="section">
+  <h2>Our Plans</h2>
+  <div class="plan-grid">
+    <div class="plan-card">
+      <h3>Entry Plan</h3>
+      <div class="price">$0</div>
+      <p>Chat Support Q&A</p>
+      <p>Sample bot included</p>
+      <p>Step-by-step guidance</p>
+      <button onclick="location.href='user-login.html'">Subscribe</button>
+    </div>
+    <div class="plan-card">
+      <h3>Basic Plan</h3>
+      <div class="price">$299</div>
+      <p>Single Strategy Automation</p>
+      <p>1 Revision Included</p>
+      <p>Delivery: 3–7 Days</p>
+      <button onclick="location.href='user-login.html'">Buy Now</button>
+    </div>
+    <div class="plan-card">
+      <h3>Pro Plan</h3>
+      <div class="price">$899</div>
+      <p>Multi-condition Strategies</p>
+      <p>Custom Indicators Support</p>
+      <p>Backtest Report + 30 Days Support</p>
+      <button onclick="location.href='user-login.html'">Buy Now</button>
+    </div>
+    <div class="plan-card">
+      <h3>Premium Plan</h3>
+      <div class="price">$2500+</div>
+      <p>Institutional Bots</p>
+      <p>Dedicated VPS Setup & Support</p>
+      <p>NDA Included</p>
+      <button onclick="location.href='user-login.html'">Buy Now</button>
+    </div>
+  </div>
+</section>
 <!-- WHY CHOOSE US -->
 <section id="about" class="section">
   <h2>WHY CHOOSE QUANTBOTFORGE?</h2>
@@ -327,47 +392,6 @@ footer{
     </div>
   </div>
 </section>
-
-
-<!-- PLANS -->
-<section id="plans" class="section">
-  <h2>Our Plans</h2>
-  <div class="plan-grid">
-    <div class="plan-card">
-      <h3>Entry Plan</h3>
-      <div class="price">$0</div>
-      <p>Chat Support Q&A</p>
-      <p>Sample bot included</p>
-      <p>Step-by-step guidance</p>
-      <button onclick="location.href='login.html'">Subscribe</button>
-    </div>
-    <div class="plan-card">
-      <h3>Basic Plan</h3>
-      <div class="price">$299</div>
-      <p>Single Strategy Automation</p>
-      <p>1 Revision Included</p>
-      <p>Delivery: 3–7 Days</p>
-      <button onclick="location.href='login.html'">Buy Now</button>
-    </div>
-    <div class="plan-card">
-      <h3>Pro Plan</h3>
-      <div class="price">$899</div>
-      <p>Multi-condition Strategies</p>
-      <p>Custom Indicators Support</p>
-      <p>Backtest Report + 30 Days Support</p>
-      <button onclick="location.href='login.html'">Buy Now</button>
-    </div>
-    <div class="plan-card">
-      <h3>Premium Plan</h3>
-      <div class="price">$2500+</div>
-      <p>Institutional Bots</p>
-      <p>Dedicated VPS Setup & Support</p>
-      <p>NDA Included</p>
-      <button onclick="location.href='login.html'">Buy Now</button>
-    </div>
-  </div>
-</section>
-
 <!-- PREMIUM CONTENT BLOCK -->
 <section style="padding:80px 20px; color:white; font-family: 'Inter', sans-serif; max-width:1000px; margin:auto;">
   <div class="fade-block">
