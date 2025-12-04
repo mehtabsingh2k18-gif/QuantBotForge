@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Why Traders Trust QuantBotForge</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ========== GLOBAL ========== */
+:root{
+  --accent:#4e8cff;
+  --accent2:#38bdf8;
+  --muted:#94a3b8;
+  --bg:#0b0f19;
+  --card:#111828;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Poppins",Arial,sans-serif;background:linear-gradient(135deg,#0c0f1a,#1b2236);color:#fff;overflow-x:hidden;}
+
+/* NAVBAR */
+.navbar{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:18px 36px;z-index:999;transition:all .28s ease}
+.navbar-inner{display:flex;align-items:center;gap:28px}
+.logo{font-weight:800;font-size:22px;color:var(--accent)}
+.nav-links{display:flex;gap:20px;align-items:center}
+.nav-links a{text-decoration:none;color:#e6eefb;font-weight:600;transition:color .2s}
+.nav-links a:hover{color:var(--accent)}
+.nav-cta{background:var(--accent);color:#fff;padding:10px 16px;border-radius:10px;text-decoration:none;font-weight:700}
+.navbar.scrolled{background:rgba(11,15,25,0.88);backdrop-filter:blur(8px)}
+.hamburger{display:none;cursor:pointer;gap:6px;flex-direction:column}
+.hamburger div{width:26px;height:3px;background:#fff;border-radius:3px}
+.mobile-menu{position:fixed;top:0;right:-100%;width:72%;height:100%;background:#0f1724;padding:70px 20px;transition:right .28s ease;z-index:998}
+.mobile-menu.active{right:0}
+.mobile-menu a{display:block;color:#fff;padding:14px 0;text-decoration:none;font-weight:600}
+
+/* SECTIONS */
+.section{max-width:1150px;margin:0 auto;padding:110px 20px 60px}
+.hero{padding-top:80px;text-align:center}
+.hero h1{font-size:46px;line-height:1.02;margin-bottom:16px;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;color:transparent;font-weight:800}
+.hero p{color:var(--muted);max-width:760px;margin:0 auto;font-size:18px}
+.badge{display:inline-block;background:#1e90ff;padding:10px 18px;border-radius:999px;color:#fff;font-weight:700;margin-top:18px}
+
+/* GRIDS & CARDS */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;margin-top:28px}
+.card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);padding:20px;border-radius:14px;cursor:pointer;position:relative}
+.card img{width:100%;height:auto;border-radius:10px;border:1px solid rgba(255,255,255,0.06);display:block;margin-bottom:12px}
+.card h3{margin-bottom:8px;color:var(--accent2)}
+.card .blurred{filter:blur(6px);position:relative}
+.card .blur-text{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);color:#fff;font-weight:700;font-size:14px;text-align:center;pointer-events:none;}
+
+/* result section */
+.result-wrap{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:start;margin-top:18px}
+.result-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;padding:18px;border:1px solid rgba(255,255,255,0.06)}
+.result-screenshot{width:100%;height:auto;border-radius:10px;border:1px solid rgba(255,255,255,0.06);display:block;cursor:pointer}
+.caption{color:var(--muted);font-size:14px;margin-top:8px}
+.quote{background:rgba(255,255,255,0.03);padding:12px;border-radius:10px;margin-top:12px;font-style:italic;color:#eaf2ff}
+.step{background:rgba(255,255,255,0.04);padding:18px;border-radius:12px;margin-bottom:12px}
+.step h3{color:var(--accent)}
+.btn-download{display:inline-block;background:var(--accent);color:#fff;padding:10px 16px;border-radius:10px;text-decoration:none;font-weight:700;margin-top:10px}
+footer{padding:36px 20px;text-align:center;color:var(--muted);margin-top:40px}
+
+/* lightbox */
+#lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);display:none;justify-content:center;align-items:center;z-index:10000;cursor:pointer}
+#lightbox img{max-width:90%;max-height:90%;border-radius:10px;}
+
+/* floating support */
+#supportFloat{position:fixed;bottom:25px;right:25px;background:var(--accent);color:#fff;padding:14px 18px;border-radius:14px;box-shadow:0 4px 12px rgba(0,0,0,0.3);cursor:pointer;z-index:10001;font-weight:600;transition:all 0.3s;}
+#supportFloat:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(0,0,0,0.4);}
+
+/* responsive */
+@media(max-width:980px){
+  .result-wrap{grid-template-columns:1fr}
+  .card-grid{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+}
+@media(max-width:520px){
+  .hero h1{font-size:30px}
+  .hero p{font-size:15px}
+  .section{padding:80px 14px}
+}
+.nav-btn{
+  padding:8px 16px;border-radius:10px;font-weight:700;
+  cursor:pointer;text-decoration:none;font-size:14px;
+  transition:0.2s;
+}
+.nav-btn.login{border:1px solid var(--accent);color:var(--accent);background:transparent;}
+.nav-btn.login:hover{background:rgba(78,140,255,0.1);}
+.nav-btn.signup{background:var(--accent);color:white;}
+.nav-btn.signup:hover{transform:scale(1.05);}
+
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+  margin-left:10px;
+}
+.hamburger div {
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  transition: all 0.3s ease;
+  border-radius:2px;
+}
+.navbar-mobile {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  position: absolute;
+  top: 70px;
+  right: 16px;
+  background: rgba(11,15,25,0.98);
+  padding: 14px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  z-index: 999;
+  min-width: 200px;
+}
+.navbar-mobile a {
+  color: #e2e8f0;
+  font-size: 16px;
+  padding: 8px 6px;
+  text-decoration:none;
+  display:block;
+}
+.navbar-mobile.show {display: flex;}
+
+/* Upgrade popup */
+#upgradePopup{
+  display:none;position:fixed;bottom:100px;right:26px;width:260px;
+  padding:18px;background:#fff;color:#000;border-radius:12px;
+  font-size:15px;box-shadow:0 20px 40px rgba(0,0,0,0.25);z-index:999;
+  opacity:0; transition:0.3s ease;
+}
+#upgradePopup.show {
+  display:block;
+  opacity:1;
+}
+.whatsapp-float {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 60px;
+  height: 60px;
+  z-index: 9999;
+  background-color: #25d366;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.4);
+}
+
+.whatsapp-icon {
+  width: 35px;
+  height: 35px;
+}
+
+/* ------------------- RESPONSIVE ------------------- */
+@media (max-width: 1024px){
+  .hero h1{font-size:42px;}
+  .hero p{font-size:17px;}
+}
+@media (max-width: 768px){
+  header{padding:12px 16px;}
+  nav#navbar-links{display:none;}        /* hide desktop nav on mobile */
+  .hamburger{display:flex;}              /* show hamburger on mobile */
+  .cta-row{flex-direction:column;gap:12px;}
+  .hero h1{font-size:36px;}
+  .hero p{font-size:16px;}
+  .plan-grid{grid-template-columns:1fr;}
+  .features-grid{grid-template-columns:1fr;}
+  .video-box{height:280px;}
+  .nav-right{gap:10px;}
+  /* mobile profile menu adjustment */
+  .profile-menu{right:10px; top:64px;}
+  .navbar-mobile{right:10px; top:64px;}
+}
+@media (max-width: 480px){
+  .hero h1{font-size:28px;}
+  .hero p{font-size:14px;}
+  .btn{padding:12px 20px;font-size:14px;}
+  .info-section{padding:40px 15px;}
+}
+/* ------------------- HEADER ------------------- */
+header{
+  position:sticky; top:0; z-index:50;
+  background:rgba(11,15,25,0.9);
+  backdrop-filter:blur(8px);
+  padding:16px 30px;
+  display:flex; justify-content:space-between; align-items:center;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.logo{font-size:22px;font-weight:800;letter-spacing:1px;}
+nav a{
+  color:#e2e8f0;margin:0 12px;text-decoration:none;font-weight:600;transition:0.25s;
+}
+nav a:hover{color:var(--accent);}
+.nav-right{display:flex;align-items:center;gap:16px;}
+.profile-icon{
+  width:45px;height:45px;border-radius:10px;
+  background:var(--accent);display:flex;align-items:center;
+  justify-content:center;font-weight:700;cursor:pointer;
+}
+.plan-badge{
+  border:1px solid var(--accent);
+  padding:6px 10px;border-radius:10px;font-size:13px;
+  display:none;
+}
+.nav-btn{
+  padding:8px 16px;border-radius:10px;font-weight:700;
+  cursor:pointer;text-decoration:none;font-size:14px;
+  transition:0.2s;
+}
+.nav-btn.login{border:1px solid var(--accent);color:var(--accent);background:transparent;}
+.nav-btn.login:hover{background:rgba(78,140,255,0.1);}
+.nav-btn.signup{background:var(--accent);color:white;}
+.nav-btn.signup:hover{transform:scale(1.05);}
+
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+  margin-left:10px;
+}
+.hamburger div {
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+.navbar-mobile {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  position: absolute;
+  top: 70px;
+  right: 30px;
+  background: rgba(11,15,25,0.95);
+  padding: 20px;
+  border-radius: 12px;
+}
+.navbar-mobile a {
+  color: #e2e8f0;
+  font-size: 16px;
+}
+.navbar-mobile.show {display: flex;}
+
+/* ------------------- RESPONSIVE ------------------- */
+@media (max-width: 1024px){
+  .hero h1{font-size:42px;}
+  .hero p{font-size:17px;}
+}
+@media (max-width: 768px){
+  header{padding:12px 20px;}
+  nav{display:none;}
+  .hamburger{display:flex; order:1;} /* Hamburger at right side */
+  .cta-row{flex-direction:column;gap:12px;}
+  .hero h1{font-size:36px;}
+  .hero p{font-size:16px;}
+  .plan-grid{grid-template-columns:1fr;}
+  .features-grid{grid-template-columns:1fr;}
+  .video-box{height:280px;}
+  .nav-right{gap:10px;}
+}
+@media (max-width: 480px){
+  .hero h1{font-size:28px;}
+  .hero p{font-size:14px;}
+  .btn{padding:12px 20px;font-size:14px;}
+  .info-section{padding:40px 15px;}
+}
+header{
+  position:sticky; top:0; z-index:50;
+  background:rgba(11,15,25,0.8);
+  backdrop-filter:blur(8px);
+  padding:16px 30px;
+  display:flex; justify-content:space-between; align-items:center;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.logo{font-size:22px;font-weight:800;}
+nav a{
+  color:#e2e8f0;margin:0 12px;text-decoration:none;font-weight:600;
+}
+nav a:hover{color:var(--accent);}
+
+.nav-right{display:flex;align-items:center;gap:16px;}
+.profile-icon{
+  width:45px;height:45px;border-radius:10px;
+  background:var(--accent);display:flex;align-items:center;
+  justify-content:center;font-weight:700;cursor:pointer;
+}
+.plan-badge{
+  border:1px solid var(--accent);
+  padding:6px 10px;border-radius:10px;font-size:13px;
+  display:none;
+}
+
+/* Profile menu */
+.profile-menu{
+  display:none;position:absolute;right:30px;top:80px;
+  background:#151c2f;border-radius:12px;width:260px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.4);padding:16px;z-index:200;
+}
+.profile-menu.visible{display:block;}
+.profile-menu .row{margin-bottom:10px;font-size:14px;}
+.profile-menu .muted{color:var(--muted);font-size:13px;}
+.logout-btn,.switch-btn{
+  width:100%;padding:10px;border:none;border-radius:10px;
+  margin-top:10px;font-size:15px;font-weight:700;cursor:pointer;
+}
+.logout-btn{background:#ef4444;color:white;}
+.switch-btn{background:#0ea5e9;color:white;}
+</style>
+</head>
+<body>
+
+<!-- WhatsApp Floating Button -->
+<a href="https://wa.me/919877084642" 
+   class="whatsapp-float" 
+   id="whatsappBtn"
+   style="display:none;" 
+   target="_blank" rel="noopener">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" 
+       class="whatsapp-icon" 
+       alt="WhatsApp Chat" />
+</a>
+
+<!-- Header with hamburger & mobile menu -->
+<header>
+  <div class="logo">QuantBotForge</div>
+
+  <!-- Desktop Navigation -->
+  <nav id="navbar-links" aria-label="Main navigation"></nav>
+
+  <!-- Hamburger Menu (Mobile) -->
+  <div class="hamburger" id="hamburger" aria-label="Open menu" role="button" tabindex="0">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
+  <div class="nav-right">
+    <div class="plan-badge" id="planBadge"></div>
+    <div id="profileContainer"></div>
+  </div>
+</header>
+
+<!-- Mobile Dropdown (hidden by default) -->
+<div class="navbar-mobile" id="mobileMenu" aria-hidden="true"></div>
+
+<div id="profileMenu" class="profile-menu" aria-hidden="true"></div>
+
+<!-- HERO -->
+<section class="section hero">
+  <h1>Why Traders Trust QuantBotForge</h1>
+  <p>Premium-quality algorithmic development, transparent work, and real delivered projects — we focus on perfection over volume.</p>
+  <div style="text-align:center"><span class="badge">Identity Verified • Professional Developer</span></div>
+</section>
+
+<!-- HISTORICAL PERFORMANCE SNAPSHOT -->
+<section class="section" style="padding-top:10px;padding-bottom:30px;">
+  <div style="max-width:920px;margin:0 auto;text-align:center;">
+    <h2 style="font-size:28px;margin-bottom:12px">Historical Performance Snapshot</h2>
+    <p style="color:var(--muted);max-width:780px;margin:0 auto 16px;">
+      Based on a 5-year backtest (2019–2024), an automated strategy grew $10,000 into $1,300,000 in simulation on GOLD (H1). Shown here as historical simulation results — past performance is not a guarantee of future returns.
+    </p>
+    <a class="btn-download" href="reports/clever trade backtest report.xlsx" download>Download Full Backtest Report (PDF)</a>
+  </div>
+</section>
+
+<!-- VERIFIED CLIENT RESULT -->
+<section class="section" style="padding-top:20px;">
+  <h2 style="font-size:30px;text-align:center">Verified Client Result — Manual Strategy (Before Automation)</h2>
+  <p class="subtext" style="max-width:820px;margin:8px auto 18px;color:var(--muted);">
+    Screenshot shows manual performance reported by a client before we automated the strategy.
+  </p>
+  <div class="result-wrap" style="margin-top:18px;">
+    <div>
+      <div class="result-card">
+        <h3 style="margin:0 0 8px;color:var(--accent2)">Client: Manual Trading Results</h3>
+        <p style="color:var(--muted);margin-bottom:10px;">Client reported cumulative profits manually. We automated the rules into an expert advisor (MQ5).</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;">
+          <div style="background:#122033;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);"><strong>$10,000</strong><div style="font-size:13px;color:var(--muted)">Initial capital</div></div>
+          <div style="background:#122033;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);"><strong>$1,300,000</strong><div style="font-size:13px;color:var(--muted)">Final (manual) — 5 years</div></div>
+        </div>
+        <div class="quote" style="margin-top:14px;">“I traded this strategy manually and the results were consistent — Mehtab automated it and delivered the bot quickly.” — <strong>Client (blurred)</strong></div>
+        <a class="btn-download" href="reports/clever trade backtest report.xlsx" download>Download Full Backtest Report (PDF)</a>
+      </div>
+      <div style="margin-top:16px">
+        <div class="step"><h3>Step 1 — Verification</h3><p style="color:var(--muted)">We verified screenshot and account summary with client.</p></div>
+        <div class="step"><h3>Step 2 — Automation</h3><p style="color:var(--muted)">Converted manual rules into MT5 code, forward/backtested.</p></div>
+        <div class="step"><h3>Step 3 — Delivery & Support</h3><p style="color:var(--muted)">Client received MQ5 file, setup instructions, and support.</p></div>
+      </div>
+    </div>
+    <div class="result-card" style="min-width:260px;max-width:100%;">
+      <img src="images/WhatsApp Image 2025-10-17 at 10.55.07 PM.jpeg" alt="Client profit screenshot (blurred)" class="result-screenshot" />
+      <p class="caption"><h3>This is the client manual trading results. Then we automated the strategy — see backtest report for results.</h3></p>
+    </div>
+  </div>
+</section>
+
+<!-- RECENT VERIFIED WORK -->
+<section class="section">
+  <h2>Recent Verified Work</h2>
+  <p class="subtext" style="color:var(--muted)">Click images to view details.</p>
+  <div class="card-grid">
+    <div class="card">
+      <div class="blurred">
+        <img src="images/code file image.png" alt="Bot Screenshot">
+        <div class="blur-text">Blurred for confidentiality</div>
+      </div>
+      <h3>Custom Trend Bot (MT5)</h3>
+      <p style="color:var(--muted)">Fully custom-coded MT5 EA built for a real trader. Delivered with support and optimization.</p>
+    </div>
+
+    <div class="card">
+      <img src="images/tester screen shot.png" alt="Backtest">
+      <h3>Verified Backtest</h3>
+      <p style="color:var(--muted)">Backtests generated with tick data and realistic spreads.</p>
+    </div>
+
+    <div class="card">
+      <img src="images/chat proof.png" alt="Published Bot">
+      <h3>Published User Bot</h3>
+      <p style="color:var(--muted)">User bot derived from a real client's strategy — anonymized results.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEEDBACK / TESTIMONIALS -->
+<section class="section">
+  <h2>Trader Feedback</h2>
+  <p class="subtext" style="color:var(--muted)">Real words from traders we’ve worked with — transparent and honest.</p>
+
+  <div class="card-grid" style="margin-top:28px;">
+
+    <!-- Positive Feedback 1 -->
+    <div class="card">
+      <div class="quote">
+        “Absolutely amazing! The bot replicates my strategy perfectly, and the support was top-notch.” — 
+        <strong style="color:#4DA6FF">Inci (@peritum_iForex, Turkey)</strong> <br>
+        <small style="color:var(--muted);font-size:12px;">Check her profile: <a href="https://x.com/peritum_iForex?t=mK5SPc2grs-5_tuGCRpVfw&s=08" target="_blank" style="color:var(--accent)">https://x.com/peritum_iForex</a></small>
+      </div>
+    </div>
+
+    <!-- Positive Feedback 2 -->
+    <div class="card">
+      <div class="quote">
+        “Professional developer. Delivery was smooth, and the performance exceeded my expectations.” — 
+        <strong style="color:#2ECC71">Mehmet Y. (Turkey)</strong>
+      </div>
+    </div>
+
+    <!-- Positive Feedback 3 -->
+    <div class="card">
+      <div class="quote">
+        “I loved the transparency and documentation. Makes me confident to use the bot long-term.” — 
+        <strong style="color:#FF8C00">Sofia L. (Germany)</strong>
+      </div>
+    </div>
+
+    <!-- Positive Feedback 4 -->
+    <div class="card">
+      <div class="quote">
+        “The automated strategy works like magic. Highly recommend their services.” — 
+        <strong style="color:#9B59B6">Raj K. (Canada)</strong>
+      </div>
+    </div>
+
+    <!-- Neutral / Appreciation -->
+    <div class="card">
+      <div class="quote">
+        “I didn’t make a bot from this site, but I liked the way they explained the workflow and support — very professional.” — 
+        <strong style="color:#FF69B4">Elena P. (France)</strong>
+      </div>
+    </div>
+
+    <!-- Negative Feedback 1 -->
+    <div class="card">
+      <div class="quote">
+        “I had some delays in response initially, but once communication was established, everything was resolved.” — 
+        <strong style="color:#1ABC9C">Ahmed S. (Egypt)</strong>
+      </div>
+    </div>
+
+    <!-- Negative Feedback 2 -->
+    <div class="card">
+      <div class="quote">
+        “The bot didn’t exactly match my first expectations, but the developer quickly implemented improvements.” — 
+        <strong style="color:#F1C40F">Lucas M. (USA)</strong>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- Footer -->
+<footer style="background: rgba(0,0,0,0.85); color: #fff; padding: 60px 20px; font-family: 'Poppins', sans-serif; line-height: 1.6;">
+  <div style="max-width: 1200px; margin: auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px;">
+    <div style="flex:1; min-width: 250px;">
+      <h3 style="color: #00d26a; font-size: 22px; margin-bottom: 15px;">QuantBotForge</h3>
+      <p>Empowering traders with automation, guidance, and confidential strategies. From beginners to professionals, we provide tools to optimize and grow your trading potential.</p>
+      <p style="margin-top: 15px; font-size: 14px; opacity: 0.8;">© 2025 QuantBotForge — All Rights Reserved</p>
+    </div>
+    <div style="flex:1; min-width: 200px;">
+      <h4 style="color: #00ff80; font-size: 18px; margin-bottom: 15px;">Quick Links</h4>
+      <ul style="list-style:none; padding:0; font-size:16px; line-height:2;">
+        <li><a href="index.html" style="color:#fff; text-decoration:none;">Home</a></li>
+        <li><a href="user-services.html" style="color:#fff; text-decoration:none;">Services</a></li>
+        <li><a href="about us.html" style="color:#fff; text-decoration:none;">About Us</a></li>
+        <li><a href="contact us.html" style="color:#fff; text-decoration:none;">Contact</a></li>
+        <li><a href="prprivacy.html" style="color:#fff; text-decoration:none;">Privacy Policy</a></li>
+        <li><a href="terms.html" style="color:#fff; text-decoration:none;">Terms</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<!-- Fake Chat -->
+<div id="fakeChatBtn">💬</div>
+<div id="upgradePopup">
+  <strong>Upgrade Required</strong><br>Live chat is available for paid users only.
+</div>
+
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<script>
+// Firebase config
+const firebaseConfig={
+  apiKey:"AIzaSyD50zshPzc8VOCWxSGLPz7EcawQb8Qreq4",
+  authDomain:"quantbotforge.firebaseapp.com",
+  databaseURL:"https://quantbotforge-default-rtdb.firebaseio.com",
+  projectId:"quantbotforge",
+  storageBucket:"quantbotforge.firebasestorage.app",
+  messagingSenderId:"792940932432",
+  appId:"1:792940932432:web:6eb33f04937fba8a301055"
+};
+firebase.initializeApp(firebaseConfig);
+const auth=firebase.auth();
+const db=firebase.database();
+
+// Elements
+const navbarLinks=document.getElementById("navbar-links");
+const profileContainer=document.getElementById("profileContainer");
+const profileMenu=document.getElementById("profileMenu");
+const planBadge=document.getElementById("planBadge");
+const fakeChatBtn=document.getElementById("fakeChatBtn");
+const upgradePopup=document.getElementById("upgradePopup");
+const whatsappBtn=document.getElementById("whatsappBtn");
+const mobileMenu = document.getElementById("mobileMenu");
+const hamburger = document.getElementById("hamburger");
+
+// Utility: set same links for desktop and mobile
+function setNavHtml(html){
+  navbarLinks.innerHTML = html;
+  mobileMenu.innerHTML = html;
+
+  // attach click listeners to mobile links to close menu when clicked
+  const mobileAnchors = mobileMenu.querySelectorAll('a');
+  mobileAnchors.forEach(a=>{
+    a.addEventListener('click', ()=>{
+      mobileMenu.classList.remove('show');
+      mobileMenu.setAttribute('aria-hidden','true');
+    });
+  });
+}
+
+// Visitor nav
+function showVisitorNav(){
+  const html = `
+    <a href="index.html">Home</a>
+    <a href="user-services.html">Services</a>
+           <a href="feedback.html"> Feedback</a>
+
+    <a href="about us.html">About Us</a>
+
+    <a href="user-faq.html">Faq</a>
+    <a href="contact us.html">Contact Us</a>
+    <a href="user-signup.html">Sign Up</a>
+    <a href="user-login.html">Login</a>
+  `;
+  setNavHtml(html);
+
+  profileContainer.innerHTML="";
+  planBadge.style.display="none";
+  fakeChatBtn.style.display="none";
+  whatsappBtn.style.display="none";
+  profileMenu.classList.remove('visible');
+}
+
+// Logged nav
+function showLoggedNav(email, plan){
+  const html = `
+    <a href="user-home-dashboard.html">Dashboard</a>
+    <a href="user-services.html">Services</a>
+            <a href="feedback.html"> Feedback</a>
+
+    <a href="user-faq.html">Faq</a>
+   
+    <a href="about us.html">About Us</a>
+     <a href="contact.html">Contact</a>
+  `;
+  setNavHtml(html);
+
+  const letter = (email && email[0]) ? email[0].toUpperCase() : 'U';
+  profileContainer.innerHTML = `<div class="profile-icon" id="profileIcon" aria-label="Profile">${letter}</div>`;
+
+  profileMenu.innerHTML = `
+    <div class="row"><strong>Plan:</strong><div class="muted">${plan}</div></div>
+    <div class="row"><strong>Email:</strong><div class="muted">${email}</div></div>
+    <button class="switch-btn" id="switchBtn">Switch Account</button>
+    <button class="logout-btn" id="logoutBtn">Logout</button>
+  `;
+
+  // safe attach - logout
+  const logoutBtn = document.getElementById("logoutBtn");
+  if(logoutBtn) logoutBtn.onclick = ()=> auth.signOut().then(()=> location.href="index.html");
+
+  const switchBtn = document.getElementById("switchBtn");
+  if(switchBtn) switchBtn.onclick = ()=> location.href='user-login.html';
+
+  // profile icon click -> toggle menu
+  const profileIcon = document.getElementById("profileIcon");
+  if(profileIcon){
+    profileIcon.onclick = (e)=>{
+      e.stopPropagation();
+      profileMenu.classList.toggle("visible");
+    };
+  }
+}
+
+// Tawk chat loader
+let tawkLoaded=false;
+function loadTawk(){
+  if(tawkLoaded) return;
+  tawkLoaded=true;
+  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+  s1.async=true;
+  s1.src="https://embed.tawk.to/6921b672a45b0c1967397786/1jalr1c4n";
+  s1.charset="UTF-8";
+  s1.setAttribute("crossorigin","*");
+  s0.parentNode.insertBefore(s1,s0);
+}
+
+// Free 72-hour trial activation
+function activateFreePlan(){
+  auth.onAuthStateChanged(user=>{
+    if(!user){
+      alert("Please login to activate your free trial.");
+      location.href="login.html";
+      return;
+    }
+    const now = Date.now();
+    const expire = now + (72 * 60 * 60 * 1000);
+    db.ref("users/"+user.uid).update({
+      plan: "free_72hr",
+      free_start: now,
+      free_expire: expire,
+      chatEnabled: true
+    }).then(()=>{
+      alert("Your Free 72-Hour Trial is Activated!");
+      location.reload();
+    });
+  });
+}
+
+// Auth + plan check + Tawk + WhatsApp
+auth.onAuthStateChanged(user=>{
+  if(!user){
+    showVisitorNav();
+    return;
+  }
+
+  const ref=db.ref("users/"+user.uid);
+  ref.once("value").then(snapshot=>{
+    const data=snapshot.val()||{};
+    let planCode=data.plan||"none";
+    const now=Date.now();
+
+    // Free plan active?
+    let freeActive=false;
+    if(planCode==="free_72hr" && now<=data.free_expire) freeActive=true;
+    if(planCode==="free_72hr" && now>data.free_expire) db.ref("users/"+user.uid).update({chatEnabled:false, plan:"expired"});
+
+    const isPaid = typeof planCode === 'string' && planCode.startsWith && planCode.startsWith("ppanttt:");
+    const chatEnabled = isPaid || freeActive;
+
+    // Display WhatsApp whenever Tawk/chat is enabled
+    if(chatEnabled){
+      loadTawk();
+      whatsappBtn.style.display="flex";
+      fakeChatBtn.style.display="none";
+    } else {
+      whatsappBtn.style.display="none";
+      fakeChatBtn.style.display="flex";
+      fakeChatBtn.onclick=()=>{upgradePopup.style.display="block"; setTimeout(()=>upgradePopup.style.display="none",3000);}
+    }
+
+    // Plan badge display
+    let readablePlan="No Active Plan";
+    if(planCode==="free_72hr") readablePlan=freeActive ? "Free Trial Active":"Expired";
+    if(typeof planCode === 'string' && planCode.startsWith && planCode.startsWith("ppanttt:")) readablePlan="Plan Activated";
+    if(planCode==="expired") readablePlan="Expired";
+    planBadge.innerText=readablePlan;
+    planBadge.style.display="inline-block";
+
+    showLoggedNav(user.email, readablePlan);
+  });
+});
+
+// ----------------- MOBILE / HAMBURGER BEHAVIOR -----------------
+if(hamburger){
+  hamburger.addEventListener('click', (e)=>{
+    e.stopPropagation();
+    mobileMenu.classList.toggle('show');
+    const isShown = mobileMenu.classList.contains('show');
+    mobileMenu.setAttribute('aria-hidden', !isShown);
+  });
+
+  // allow keyboard toggle
+  hamburger.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter' || e.key === ' '){
+      e.preventDefault();
+      hamburger.click();
+    }
+  });
+}
+
+// close mobile menu when clicking outside
+document.addEventListener('click', (e)=>{
+  const target = e.target;
+  if(!mobileMenu.contains(target) && !hamburger.contains(target)){
+    if(mobileMenu.classList.contains('show')){
+      mobileMenu.classList.remove('show');
+      mobileMenu.setAttribute('aria-hidden','true');
+    }
+  }
+  // also close profile menu on outside click
+  if(!profileMenu.contains(target) && !profileContainer.contains(target)){
+    if(profileMenu.classList.contains('visible')){
+      profileMenu.classList.remove('visible');
+    }
+  }
+});
+
+// close menus on escape key
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'Escape'){
+    if(mobileMenu.classList.contains('show')){
+      mobileMenu.classList.remove('show');
+      mobileMenu.setAttribute('aria-hidden','true');
+    }
+    if(profileMenu.classList.contains('visible')){
+      profileMenu.classList.remove('visible');
+    }
+  }
+});
+
+// keep nav updated if DOM changes (e.g., after login)
+const observer = new MutationObserver(()=> {
+  // rebind profile icon if present
+  const profileIcon = document.getElementById("profileIcon");
+  if(profileIcon){
+    profileIcon.onclick = (ev)=>{
+      ev.stopPropagation();
+      profileMenu.classList.toggle("visible");
+    };
+  }
+});
+observer.observe(document.body, { childList: true, subtree: true });
+
+// on load - initialize visitor nav so menus exist before auth check finishes
+document.addEventListener('DOMContentLoaded', ()=>{
+  showVisitorNav();
+});
+// Fade-in animation for premium content blocks
+document.addEventListener("DOMContentLoaded", () => {
+  const fadeBlocks = document.querySelectorAll(".fade-block");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("fade-visible");
+        }
+      });
+    },
+    {
+      threshold: 0.15
+    }
+  );
+
+  fadeBlocks.forEach((block) => observer.observe(block));
+});
+</script>
+</body>
+</html>
