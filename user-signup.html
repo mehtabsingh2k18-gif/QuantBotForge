@@ -4,7 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sign Up — QuantBotForge</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
 <style>
 :root{
   --accent:#4e8cff;
@@ -14,6 +16,11 @@
   --muted:#94a3b8;
   --radius:14px;
 }
+
+*{
+  box-sizing:border-box;
+}
+
 body {
   margin:0;
   font-family:'Inter',sans-serif;
@@ -23,13 +30,15 @@ body {
   flex-direction:column;
   align-items:center;
   min-height:100vh;
-  overflow-x:hidden;
+  padding:20px;
 }
+
 header {
-  margin-top:50px;
+  margin-top:30px;
   text-align:center;
   animation:fadeIn 1s ease;
 }
+
 header .logo {
   font-size:42px;
   font-weight:800;
@@ -38,20 +47,25 @@ header .logo {
   color:transparent;
   margin-bottom:10px;
 }
+
 header .slogan {
   font-size:18px;
   color:var(--muted);
   animation:slideUp 1s ease;
+  max-width:360px;
 }
+
 .signup-box {
   background:var(--card);
   border-radius:var(--radius);
-  padding:40px 30px;
-  margin-top:40px;
-  width:360px;
+  padding:35px 30px;
+  margin-top:35px;
+  width:100%;
+  max-width:380px;
   box-shadow:0 10px 30px rgba(0,0,0,0.4);
   animation:slideUp 1s ease;
 }
+
 .signup-box h2 {
   font-size:28px;
   font-weight:800;
@@ -61,74 +75,85 @@ header .slogan {
   -webkit-background-clip:text;
   color:transparent;
 }
+
 input {
   width:100%;
-  padding:14px;
+  padding:15px;
   margin:10px 0;
   border-radius:12px;
   border:1px solid rgba(255,255,255,0.1);
   background:#1b253b;
   color:white;
-  font-size:15px;
-  transition:0.3s;
+  font-size:16px;
 }
+
 input:focus {
   outline:none;
   border:1px solid var(--accent2);
   box-shadow:0 0 10px rgba(56,189,248,0.4);
 }
+
 button {
   width:100%;
-  padding:14px;
+  padding:15px;
   margin-top:15px;
   border:none;
   border-radius:12px;
   font-size:16px;
   font-weight:700;
   cursor:pointer;
-  transition:0.3s;
 }
+
 #signupBtn {
   background: linear-gradient(90deg,var(--accent),var(--accent2));
   color:white;
 }
+
 #signupBtn:hover { opacity:0.85; }
+
 #googleBtn {
   background:#db4437;
   color:white;
-  margin-top:10px;
+  margin-top:12px;
 }
+
 #googleBtn:hover { opacity:0.85; }
+
 .error {
   text-align:center;
   color:#ef4444;
   font-size:14px;
-  margin-top:10px;
+  margin-top:12px;
 }
+
 .login-link {
   text-align:center;
-  margin-top:15px;
+  margin-top:18px;
   font-size:14px;
   color:var(--muted);
 }
+
 .login-link a {
   color:var(--accent);
   text-decoration:none;
   font-weight:600;
 }
-.login-link a:hover { opacity:0.85; }
+
 @keyframes fadeIn{
   0%{opacity:0;transform:translateY(20px);}
   100%{opacity:1;transform:translateY(0);}
 }
+
 @keyframes slideUp{
   0%{opacity:0;transform:translateY(40px);}
   100%{opacity:1;transform:translateY(0);}
 }
-@media(max-width:420px){
-  .signup-box{width:90%; padding:30px;}
-  header .logo{font-size:36px;}
-  header .slogan{font-size:16px;}
+
+/* ✅ EXTRA MOBILE OPTIMIZATION */
+@media(max-width:480px){
+  header .logo{font-size:34px;}
+  header .slogan{font-size:15px;}
+  .signup-box{padding:28px 20px;}
 }
 </style>
 </head>
@@ -140,22 +165,33 @@ button {
 </header>
 
 <div class="signup-box">
-  <h2>Sign Up</h2>
-  <input type="text" id="username" placeholder="Enter Username (optional)">
-  <input type="email" id="email" placeholder="Enter Email">
-  <input type="password" id="password" placeholder="Enter Password">
-  <button id="signupBtn" type="button">Sign Up</button>
-  <button id="googleBtn" type="button">Sign Up with Google</button>
-  <div id="errorMessage" class="error"></div>
-  <div class="login-link">Already have an account? <a href="user-login.html">Login</a></div>
+
+  <!-- ✅ FORM SO ENTER KEY WORKS -->
+  <form id="signupForm">
+    <h2>Sign Up</h2>
+
+    <input type="text" id="username" placeholder="Enter Username (optional)">
+    <input type="email" id="email" placeholder="Enter Email" required>
+    <input type="password" id="password" placeholder="Enter Password" required>
+
+    <button id="signupBtn" type="submit">Sign Up</button>
+    <button id="googleBtn" type="button">Sign Up with Google</button>
+
+    <div id="errorMessage" class="error"></div>
+
+    <div class="login-link">
+      Already have an account? <a href="user-login.html">Login</a>
+    </div>
+  </form>
+
 </div>
 
+<!-- ✅ FIREBASE LOGIC -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
 import { getDatabase, ref, set, get, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
 
-// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyD50zshPzc8VOCWxSGLPz7EcawQb8Qreq4",
   authDomain: "quantbotforge.firebaseapp.com",
@@ -166,12 +202,11 @@ const firebaseConfig = {
   databaseURL: "https://quantbotforge-default-rtdb.firebaseio.com/"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(app);
 
-const signupBtn = document.getElementById("signupBtn");
+const signupForm = document.getElementById("signupForm");
 const googleBtn = document.getElementById("googleBtn");
 const errorMessage = document.getElementById("errorMessage");
 
@@ -186,14 +221,16 @@ async function usernameExists(username) {
   return snap.exists();
 }
 
-// Email/Password Sign Up
-signupBtn.onclick = async () => {
+/* ✅ ENTER KEY WORKS AUTOMATICALLY */
+signupForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
   errorMessage.textContent = "";
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
   let username = document.getElementById("username").value.trim();
 
-  if(!email || !password) {
+  if(!email || !password){
     errorMessage.textContent = "Email and password are required.";
     return;
   }
@@ -201,7 +238,7 @@ signupBtn.onclick = async () => {
   if(!username) username = generateUsername(email.split("@")[0]);
 
   try {
-    while(await usernameExists(username)) {
+    while(await usernameExists(username)){
       username = generateUsername(username);
     }
 
@@ -216,18 +253,15 @@ signupBtn.onclick = async () => {
       created_at: Date.now()
     });
 
-    localStorage.setItem("qbf_user_email", email);
-    localStorage.setItem("qbf_user_username", username);
-    localStorage.setItem("qbf_user_plan","none");
-
     window.location.href="user-home-dashboard.html";
+
   } catch(err){
     console.error(err);
     errorMessage.textContent = err.message;
   }
-};
+});
 
-// Google Sign Up
+/* ✅ GOOGLE SIGNUP */
 googleBtn.onclick = async () => {
   try{
     const provider = new GoogleAuthProvider();
@@ -246,12 +280,8 @@ googleBtn.onclick = async () => {
       });
     }
 
-    const data = (await get(ref(db,"users/"+user.uid))).val();
-    localStorage.setItem("qbf_user_email", data.email);
-    localStorage.setItem("qbf_user_username", data.username);
-    localStorage.setItem("qbf_user_plan", data.plan);
-
     window.location.href="user-home-dashboard.html";
+
   } catch(err){
     console.error(err);
     errorMessage.textContent = err.message;
