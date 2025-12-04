@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-:root{
+  :root{
   --accent:#4e8cff;
   --accent2:#38bdf8;
   --muted:#94a3b8;
@@ -28,10 +28,12 @@ header{
   border-bottom:1px solid rgba(255,255,255,0.06);
 }
 .logo{font-size:22px;font-weight:800;}
-nav a{color:#e2e8f0;margin:0 12px;text-decoration:none;font-weight:600;}
-nav a:hover{color:var(--accent);}
+/* Desktop nav container */
+nav#navbar-links{display:flex; align-items:center; gap:8px;}
+nav#navbar-links a{color:#e2e8f0;margin:0 12px;text-decoration:none;font-weight:600;}
+nav#navbar-links a:hover{color:var(--accent);}
 
-.nav-right{display:flex;align-items:center;gap:16px;}
+.nav-right{display:flex;align-items:center;gap:16px; position:relative;}
 .profile-icon{
   width:45px;height:45px;border-radius:10px;
   background:var(--accent);display:flex;align-items:center;
@@ -45,7 +47,7 @@ nav a:hover{color:var(--accent);}
 
 /* Profile menu */
 .profile-menu{
-  display:none;position:absolute;right:30px;top:80px;
+  display:none;position:absolute;right:0;top:70px;
   background:#151c2f;border-radius:12px;width:260px;
   box-shadow:0 10px 30px rgba(0,0,0,0.4);padding:16px;z-index:200;
 }
@@ -192,10 +194,7 @@ header{
   border-bottom:1px solid rgba(255,255,255,0.06);
 }
 .logo{font-size:22px;font-weight:800;letter-spacing:1px;}
-nav a{
-  color:#e2e8f0;margin:0 12px;text-decoration:none;font-weight:600;transition:0.25s;
-}
-nav a:hover{color:var(--accent);}
+/* nav a styles exist above for #navbar-links */
 .nav-right{display:flex;align-items:center;gap:16px;}
 .profile-icon{
   width:45px;height:45px;border-radius:10px;
@@ -230,6 +229,7 @@ nav a:hover{color:var(--accent);}
   height: 3px;
   background-color: white;
   transition: all 0.3s ease;
+  border-radius:2px;
 }
 .navbar-mobile {
   display: none;
@@ -237,14 +237,20 @@ nav a:hover{color:var(--accent);}
   gap: 10px;
   position: absolute;
   top: 70px;
-  right: 30px;
-  background: rgba(11,15,25,0.95);
-  padding: 20px;
+  right: 16px;
+  background: rgba(11,15,25,0.98);
+  padding: 14px;
   border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  z-index: 999;
+  min-width: 200px;
 }
 .navbar-mobile a {
   color: #e2e8f0;
   font-size: 16px;
+  padding: 8px 6px;
+  text-decoration:none;
+  display:block;
 }
 .navbar-mobile.show {display: flex;}
 
@@ -406,21 +412,15 @@ footer{
   height: 35px;
 }
 
-/* ------------------- ANIMATIONS ------------------- */
-@keyframes fadeIn{
-  0%{opacity:0;transform:translateY(20px);} 100%{opacity:1;transform:translateY(0);} }
-@keyframes slideUp{
-  0%{opacity:0;transform:translateY(40px);} 100%{opacity:1;transform:translateY(0);} }
-
 /* ------------------- RESPONSIVE ------------------- */
 @media (max-width: 1024px){
   .hero h1{font-size:42px;}
   .hero p{font-size:17px;}
 }
 @media (max-width: 768px){
-  header{padding:12px 20px;}
-  nav{display:none;}
-  .hamburger{display:flex; order:1;} /* Hamburger at right side */
+  header{padding:12px 16px;}
+  nav#navbar-links{display:none;}        /* hide desktop nav on mobile */
+  .hamburger{display:flex;}              /* show hamburger on mobile */
   .cta-row{flex-direction:column;gap:12px;}
   .hero h1{font-size:36px;}
   .hero p{font-size:16px;}
@@ -428,6 +428,9 @@ footer{
   .features-grid{grid-template-columns:1fr;}
   .video-box{height:280px;}
   .nav-right{gap:10px;}
+  /* mobile profile menu adjustment */
+  .profile-menu{right:10px; top:64px;}
+  .navbar-mobile{right:10px; top:64px;}
 }
 @media (max-width: 480px){
   .hero h1{font-size:28px;}
@@ -435,33 +438,45 @@ footer{
   .btn{padding:12px 20px;font-size:14px;}
   .info-section{padding:40px 15px;}
 }
-
 </style>
 </head>
-
 <body>
-<!-- WhatsApp Floating Button (Initially Hidden) -->
+
+<!-- WhatsApp Floating Button -->
 <a href="https://wa.me/919877084642" 
    class="whatsapp-float" 
    id="whatsappBtn"
    style="display:none;" 
-   target="_blank">
+   target="_blank" rel="noopener">
   <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" 
        class="whatsapp-icon" 
        alt="WhatsApp Chat" />
 </a>
 
-
+<!-- Header with hamburger & mobile menu -->
 <header>
   <div class="logo">QuantBotForge</div>
-  <nav id="navbar-links"></nav>
+
+  <!-- Desktop Navigation -->
+  <nav id="navbar-links" aria-label="Main navigation"></nav>
+
+  <!-- Hamburger Menu (Mobile) -->
+  <div class="hamburger" id="hamburger" aria-label="Open menu" role="button" tabindex="0">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
   <div class="nav-right">
     <div class="plan-badge" id="planBadge"></div>
     <div id="profileContainer"></div>
   </div>
 </header>
 
-<div id="profileMenu" class="profile-menu"></div>
+<!-- Mobile Dropdown (hidden by default) -->
+<div class="navbar-mobile" id="mobileMenu" aria-hidden="true"></div>
+
+<div id="profileMenu" class="profile-menu" aria-hidden="true"></div>
 
 <!-- HERO -->
 <section class="hero">
@@ -489,7 +504,6 @@ footer{
   </div>
 </section>
 
-
 <!-- PLANS -->
 <section class="plans">
   <h2>Choose Your Plan</h2>
@@ -509,7 +523,7 @@ footer{
     <div class="plan-card">
       <h3>Basic Plan</h3><div class="price">$299</div>
       <p>Single Strategy Automation</p><p>1 Revision Included</p><p>Delivery: 3–7 Days</p>
-      <button onclick="location.href='user-Bsic.html'">Buy Now</button>
+      <button onclick="location.href='user-Basic.html'">Buy Now</button>
     </div>
     <div class="plan-card">
       <h3>Pro Plan</h3><div class="price">$899</div>
@@ -659,7 +673,6 @@ footer{
   </div>
 </footer>
 
-
 <!-- Fake Chat -->
 <div id="fakeChatBtn">💬</div>
 <div id="upgradePopup">
@@ -672,19 +685,6 @@ footer{
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
 <script>
-   // Fade blocks on scroll
-  const blocks = document.querySelectorAll('.fade-block');
-  function reveal() {
-    blocks.forEach(block => {
-      const blockTop = block.getBoundingClientRect().top;
-      if (blockTop < window.innerHeight - 100) {
-        block.classList.add('fade-visible');
-      }
-    });
-  }
-  window.addEventListener('scroll', reveal);
-  window.addEventListener('load', reveal);
-
 // Firebase config
 const firebaseConfig={
   apiKey:"AIzaSyD50zshPzc8VOCWxSGLPz7EcawQb8Qreq4",
@@ -699,30 +699,6 @@ firebase.initializeApp(firebaseConfig);
 const auth=firebase.auth();
 const db=firebase.database();
 
-// Activate Free 72-Hour Plan
-function activateFreePlan(){
-  auth.onAuthStateChanged(user=>{
-    if(!user){
-      alert("Please login to activate your free trial.");
-      location.href="login.html";
-      return;
-    }
-
-    const now = Date.now();
-    const expire = now + (72 * 60 * 60 * 1000);
-
-    db.ref("users/"+user.uid).update({
-      plan: "free_72hr",
-      free_start: now,
-      free_expire: expire,
-      chatEnabled: true
-    }).then(()=>{
-      alert("Your Free 72-Hour Trial is Activated!");
-      location.reload();
-    });
-  });
-}
-
 // Elements
 const navbarLinks=document.getElementById("navbar-links");
 const profileContainer=document.getElementById("profileContainer");
@@ -730,41 +706,151 @@ const profileMenu=document.getElementById("profileMenu");
 const planBadge=document.getElementById("planBadge");
 const fakeChatBtn=document.getElementById("fakeChatBtn");
 const upgradePopup=document.getElementById("upgradePopup");
+const whatsappBtn=document.getElementById("whatsappBtn");
+const mobileMenu = document.getElementById("mobileMenu");
+const hamburger = document.getElementById("hamburger");
+
+// Utility: set same links for desktop and mobile
+function setNavHtml(html){
+  navbarLinks.innerHTML = html;
+  mobileMenu.innerHTML = html;
+
+  // attach click listeners to mobile links to close menu when clicked
+  const mobileAnchors = mobileMenu.querySelectorAll('a');
+  mobileAnchors.forEach(a=>{
+    a.addEventListener('click', ()=>{
+      mobileMenu.classList.remove('show');
+      mobileMenu.setAttribute('aria-hidden','true');
+    });
+  });
+}
+function updatePlanCardForFreeTrial(freeActive) {
+  if(!freeActive) return; // only change if free trial is active
+
+  // find the first plan card (assumes the Free Entry Plan is first)
+  const planGrid = document.querySelector(".plan-grid");
+  if(!planGrid) return;
+
+  const firstCard = planGrid.querySelector(".plan-card");
+  if(!firstCard) return;
+
+  // replace innerHTML with Basic Plan content
+  firstCard.innerHTML = `
+    <h3>Basic Plan</h3>
+    <div class="price">$19</div>
+    <p>Single Strategy Automation</p>
+    <p>1 Revision Included</p>
+    <p>Delivery: 3–7 Days</p>
+    <button onclick="location.href='user-Basic.html'">Buy Now</button>
+  `;
+}
+function updatePlanCardForFreeTrial(freeActive, planCode) {
+  const isPaid = typeof planCode === 'string' && planCode.startsWith && planCode.startsWith("ppanttt:"); 
+
+  if(!freeActive && !isPaid) return; // do nothing if neither
+
+  const planGrid = document.querySelector(".plan-grid");
+  if(!planGrid) return;
+
+  const firstCard = planGrid.querySelector(".plan-card");
+  if(!firstCard) return;
+
+  firstCard.innerHTML = `
+    <h3>Basic Plan</h3>
+    <div class="price">$299</div>
+    <p>Single Strategy Automation</p>
+    <p>1 Revision Included</p>
+    <p>Delivery: 3–7 Days</p>
+    <button onclick="location.href='user-Basic.html'">Buy Now</button>
+  `;
+}
 
 // Visitor nav
 function showVisitorNav(){
-  navbarLinks.innerHTML=`
-     <a href="index.html">Home</a>
+  const html = `
+    <a href="index.html">Home</a>
     <a href="user-services.html">Services</a>
-    <a href="about us.html">About Us</a>
+    
+            <a href="feedback.html"> Feedback</a>
+
     <a href="user-faq.html">Faq</a>
+<a href="about us.html">About Us</a>
     <a href="contact us.html">Contact Us</a>
     <a href="user-signup.html">Sign Up</a>
-    <a href="user-login.html">Login</a>`;
+    <a href="user-login.html">Login</a>
+  `;
+  setNavHtml(html);
+
   profileContainer.innerHTML="";
   planBadge.style.display="none";
+  fakeChatBtn.style.display="none";
+  whatsappBtn.style.display="none";
+  profileMenu.classList.remove('visible');
 }
+function updatePlanCardStatus(freeActive, planCode) {
+  // Only proceed if free trial active OR paid plan
+  const isPaid = typeof planCode === 'string' && planCode.startsWith && planCode.startsWith("ppanttt:");
+  if (!freeActive && !isPaid) return;
+
+  const planGrid = document.querySelector(".plan-grid");
+  if (!planGrid) return;
+
+  const firstCard = planGrid.querySelector(".plan-card");
+  if (!firstCard) return;
+
+  // Change Free Entry Plan to paid plan card
+  firstCard.innerHTML = `
+    <h3>Basic Plan</h3>
+    <div class="price">$19</div>
+    <p>Chat Support Q&A</p>
+    <p>Sample bot included</p>
+    <p>Step-by-step guidance</p>
+    <button onclick="location.href='user-Basic.html'">Buy Now</button>
+  `;
+}
+
 
 // Logged nav
 function showLoggedNav(email, plan){
-  navbarLinks.innerHTML=`
-     <a href="user-home-dashboard.html">Dashboard</a>
+  const html = `
+    <a href="user-home-dashboard.html">Dashboard</a>
     <a href="user-services.html">Services</a>
-    <a href="about us.html">About Us</a>
+            <a href="feedback.html"> Feedback</a>
+
     <a href="user-faq.html">Faq</a>
-    <a href="contact.html">Contact</a>`;
-  const letter=email[0].toUpperCase();
-  profileContainer.innerHTML=`<div class="profile-icon" id="profileIcon">${letter}</div>`;
-  profileMenu.innerHTML=`
+        <a href="about us.html">About Us</a>
+<a href="contact.html">Contact</a>
+  `;
+  setNavHtml(html);
+
+  const letter = (email && email[0]) ? email[0].toUpperCase() : 'U';
+  profileContainer.innerHTML = `<div class="profile-icon" id="profileIcon" aria-label="Profile">${letter}</div>`;
+
+  profileMenu.innerHTML = `
     <div class="row"><strong>Plan:</strong><div class="muted">${plan}</div></div>
     <div class="row"><strong>Email:</strong><div class="muted">${email}</div></div>
-    <button class="switch-btn" onclick="location.href='user-login.html'">Switch Account</button>
-    <button class="logout-btn" id="logoutBtn">Logout</button>`;
-  document.getElementById("logoutBtn").onclick=()=>auth.signOut().then(()=>location.href="index.html");
-  document.getElementById("profileIcon").onclick=()=>profileMenu.classList.toggle("visible");
+    <button class="switch-btn" id="switchBtn">Switch Account</button>
+    <button class="logout-btn" id="logoutBtn">Logout</button>
+  `;
+
+  // safe attach - logout
+  const logoutBtn = document.getElementById("logoutBtn");
+  if(logoutBtn) logoutBtn.onclick = ()=> auth.signOut().then(()=> location.href="index.html");
+
+  const switchBtn = document.getElementById("switchBtn");
+  if(switchBtn) switchBtn.onclick = ()=> location.href='user-login.html';
+
+  // profile icon click -> toggle menu
+  const profileIcon = document.getElementById("profileIcon");
+  if(profileIcon){
+    profileIcon.onclick = (e)=>{
+      e.stopPropagation();
+      profileMenu.classList.toggle("visible");
+    };
+  }
 }
 
-// Tawk chat
+// Tawk chat loader
 let tawkLoaded=false;
 function loadTawk(){
   if(tawkLoaded) return;
@@ -777,93 +863,160 @@ function loadTawk(){
   s0.parentNode.insertBefore(s1,s0);
 }
 
-// Auth check + Plan display + Free plan expiry
-auth.onAuthStateChanged(user=>{
-  if(!user){showVisitorNav();return;}
+// Free 72-hour trial activation
+function activateFreePlan(){
+  auth.onAuthStateChanged(user=>{
+    if(!user){
+      alert("Please login to activate your free trial.");
+      location.href="login.html";
+      return;
+    }
+    const now = Date.now();
+    const expire = now + (72 * 60 * 60 * 1000);
+    db.ref("users/"+user.uid).update({
+      plan: "free_72hr",
+      free_start: now,
+      free_expire: expire,
+      chatEnabled: true
+    }).then(()=>{
+      alert("Your Free 72-Hour Trial is Activated!");
+      location.reload();
+    });
+  });
+}
 
-  showLoggedNav(user.email,"Loading…");
+// Auth + plan check + Tawk + WhatsApp
+auth.onAuthStateChanged(user=>{
+  if(!user){
+    showVisitorNav();
+    return;
+  }
 
   const ref=db.ref("users/"+user.uid);
   ref.once("value").then(snapshot=>{
     const data=snapshot.val()||{};
     let planCode=data.plan||"none";
-
-    let freeActive=false;
     const now=Date.now();
 
-    // Handle Free 72-Hour Plan
-    if(planCode==="free_72hr"){
-      if(now <= data.free_expire){
-        freeActive=true;
-      } else {
-        db.ref("users/"+user.uid).update({ chatEnabled:false, plan:"expired" });
-      }
+    // Free plan active?
+    let freeActive=false;
+    if(planCode==="free_72hr" && now<=data.free_expire) freeActive=true;
+updatePlanCardStatus(freeActive, planCode);
+    
+    if(planCode==="free_72hr" && now>data.free_expire) db.ref("users/"+user.uid).update({chatEnabled:false, plan:"expired"});
+
+    const isPaid = typeof planCode === 'string' && planCode.startsWith && planCode.startsWith("ppanttt:");
+    const chatEnabled = isPaid || freeActive;
+
+    // Display WhatsApp whenever Tawk/chat is enabled
+    if(chatEnabled){
+      loadTawk();
+      whatsappBtn.style.display="flex";
+      fakeChatBtn.style.display="none";
+    } else {
+      whatsappBtn.style.display="none";
+      fakeChatBtn.style.display="flex";
+      fakeChatBtn.onclick=()=>{upgradePopup.style.display="block"; setTimeout(()=>upgradePopup.style.display="none",3000);}
     }
 
+    // Plan badge display
     let readablePlan="No Active Plan";
-    if(planCode.startsWith("ppanttt:")) readablePlan="Plan Activated";
-    if(planCode==="free_72hr") readablePlan="Free Trial Active";
+    if(planCode==="free_72hr") readablePlan=freeActive ? "Free Trial Active":"Expired";
+    if(typeof planCode === 'string' && planCode.startsWith && planCode.startsWith("ppanttt:")) readablePlan="Plan Activated";
     if(planCode==="expired") readablePlan="Expired";
-
     planBadge.innerText=readablePlan;
     planBadge.style.display="inline-block";
-    showLoggedNav(user.email,readablePlan);
-
-    const isPaid = planCode.startsWith("ppanttt:");
-    const enableChat = isPaid || freeActive;
-
-    if(enableChat){
-      fakeChatBtn.style.display="none";
-      loadTawk();
-    } else {
-      fakeChatBtn.style.display="flex";
-      fakeChatBtn.onclick=()=>{
-        upgradePopup.style.display="block";
-        setTimeout(()=>upgradePopup.style.display="none",3000);
-      };
-    }
-var Tawk_API = Tawk_API || {};
-auth.onAuthStateChanged(user => {
-  if (!user) {
-    showVisitorNav(); // Default nav for visitors
-    document.getElementById("whatsappBtn").style.display = "none";
-    return;
-  }
-
-  const ref = db.ref("users/" + user.uid);
-  ref.once("value").then(snapshot => {
-    const data = snapshot.val() || {};
-    let plan = data.plan || "none";
-    const now = Date.now();
-
-    // Check free trial
-    let freeActive = false;
-    if (plan === "free_72hr" && now <= data.free_expire) {
-      freeActive = true;
-    }
-
-    // Display WhatsApp only if free trial is active
-    const whatsappBtn = document.getElementById("whatsappBtn");
-    if (freeActive) {
-      whatsappBtn.style.display = "flex";
-    } else {
-      whatsappBtn.style.display = "none";
-    }
-
-    // Show plan badge
-    let readablePlan = "No Active Plan";
-    if (plan === "free_72hr") readablePlan = freeActive ? "Free Trial Active" : "Expired";
-    if (plan.startsWith("ppanttt:")) readablePlan = "Plan Activated";
-    planBadge.innerText = readablePlan;
-    planBadge.style.display = "inline-block";
 
     showLoggedNav(user.email, readablePlan);
   });
 });
 
-  });
-});
-</script>
 
+// ----------------- MOBILE / HAMBURGER BEHAVIOR -----------------
+if(hamburger){
+  hamburger.addEventListener('click', (e)=>{
+    e.stopPropagation();
+    mobileMenu.classList.toggle('show');
+    const isShown = mobileMenu.classList.contains('show');
+    mobileMenu.setAttribute('aria-hidden', !isShown);
+  });
+
+  // allow keyboard toggle
+  hamburger.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter' || e.key === ' '){
+      e.preventDefault();
+      hamburger.click();
+    }
+  });
+}
+
+// close mobile menu when clicking outside
+document.addEventListener('click', (e)=>{
+  const target = e.target;
+  if(!mobileMenu.contains(target) && !hamburger.contains(target)){
+    if(mobileMenu.classList.contains('show')){
+      mobileMenu.classList.remove('show');
+      mobileMenu.setAttribute('aria-hidden','true');
+    }
+  }
+  // also close profile menu on outside click
+  if(!profileMenu.contains(target) && !profileContainer.contains(target)){
+    if(profileMenu.classList.contains('visible')){
+      profileMenu.classList.remove('visible');
+    }
+  }
+});
+
+// close menus on escape key
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'Escape'){
+    if(mobileMenu.classList.contains('show')){
+      mobileMenu.classList.remove('show');
+      mobileMenu.setAttribute('aria-hidden','true');
+    }
+    if(profileMenu.classList.contains('visible')){
+      profileMenu.classList.remove('visible');
+    }
+  }
+});
+
+// keep nav updated if DOM changes (e.g., after login)
+const observer = new MutationObserver(()=> {
+  // rebind profile icon if present
+  const profileIcon = document.getElementById("profileIcon");
+  if(profileIcon){
+    profileIcon.onclick = (ev)=>{
+      ev.stopPropagation();
+      profileMenu.classList.toggle("visible");
+    };
+  }
+});
+observer.observe(document.body, { childList: true, subtree: true });
+
+// on load - initialize visitor nav so menus exist before auth check finishes
+document.addEventListener('DOMContentLoaded', ()=>{
+  showVisitorNav();
+});
+// Fade-in animation for premium content blocks
+document.addEventListener("DOMContentLoaded", () => {
+  const fadeBlocks = document.querySelectorAll(".fade-block");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("fade-visible");
+        }
+      });
+    },
+    {
+      threshold: 0.15
+    }
+  );
+
+  fadeBlocks.forEach((block) => observer.observe(block));
+});
+
+</script>
 </body>
 </html>
