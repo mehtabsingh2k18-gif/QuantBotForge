@@ -34,8 +34,9 @@
   <div class="price-tag">$899 CAD</div>
 
   <!-- PAYPAL SANDBOX BUTTON -->
-  <script src="https://www.paypal.com/sdk/js?client-id=Aa-KY7wW1uX5G4F62yJV_WjpDEitJ9mkUIz0F4NqPrg-zwWRh3ZSbFbeChKoU3hmiZQ6_bnG6eiRNy8s&currency=CAD"></script>
-
+<script 
+  src="https://www.paypal.com/sdk/js?client-id=BAAEqqBng4jRkrWgNQ1maidDZcJ20ijG31YidgtYcbdBubwS1vGWHVr08Xa-4Ip9k6mV8YCw3Z7BTt0KAc&components=hosted-buttons&disable-funding=venmo&currency=USD">
+</script>
   <div id="paypal-container"></div>
 
   <script>
@@ -65,7 +66,12 @@
       }
     }).render('#paypal-container');
   </script>
-
+<div id="paypal-container-E4LWF5QAAJ48W"></div>
+<script>
+  paypal.HostedButtons({
+    hostedButtonId: "E4LWF5QAAJ48W",
+  }).render("#paypal-container-E4LWF5QAAJ48W")
+</script>
   <a class="back-btn" href="/">← Back to Pricing</a>
 </div>
 
